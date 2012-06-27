@@ -85,6 +85,7 @@ class Module
 			define(self::$configCompatMapping[$key], $value);
 		}
 		
+		require_once __DIR__ . "/../../../dompdf/lib/DOMPDF/functions.inc.php";
 		require_once(__DIR__ . '/../../config/module.compat.php');
 	}
 	

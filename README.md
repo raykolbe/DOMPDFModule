@@ -35,7 +35,7 @@ PHP Composer, please visit the official [PHP Composer site](http://getcomposer.o
 #### Configuration options
 Copy `dino/DOMPDFModule/config/module.dompdf.local.php` to `my/project/directory/config/autoload/module.dompdf.local.php` and reference `dino/DOMPDFModule/config/module.config.php` for configration options that you can override.
 
-#### Usage
+## Usage
 
 ```php
 <?php

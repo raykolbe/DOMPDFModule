@@ -5,10 +5,11 @@ The DOMPDF module integrates the DOMPDF library with Zend Framework 2 with minim
 effort on the consumer's end.
 
 ## Requirements
-[Zend Framework 2](http://www.github.com/zendframework/zf2)
-[DOMPDF](https://github.com/raykolbe/dompdf)
+  - [Zend Framework 2](http://www.github.com/zendframework/zf2)
+  - [DOMPDF](https://github.com/raykolbe/dompdf)
 
-## Installation of DOMPDFModule uses PHP Composer. For more information about
+## Installation
+Installation of DOMPDFModule uses PHP Composer. For more information about
 PHP Composer, please visit the official [PHP Composer site](http://getcomposer.org/).
 
 #### Installation steps

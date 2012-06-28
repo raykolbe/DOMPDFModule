@@ -35,6 +35,25 @@ PHP Composer, please visit the official [PHP Composer site](http://getcomposer.o
 #### Configuration options
 Copy `dino/DOMPDFModule/config/module.dompdf.local.php` to `my/project/directory/config/autoload/module.dompdf.local.php` and reference `dino/DOMPDFModule/config/module.config.php` for configration options that you can override.
 
+#### Usage
+
+```php
+<?php
+
+namespace Application\Controller;
+
+use Zend\Mvc\Controller\ActionController;
+use DOMPDFModule\View\Model\PdfModel;
+
+class ReportController extends ActionController
+{
+    public function indexAction()
+    {
+        return new PdfModel(); // Takes same params as Zend\View\Model\ViewModel
+    }
+}
+```
+
 ## To-do
   - Create tests
   - Add support for DOMPDF CLI

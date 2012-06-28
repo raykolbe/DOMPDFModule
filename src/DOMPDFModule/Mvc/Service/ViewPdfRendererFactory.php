@@ -19,9 +19,9 @@
 
 namespace DOMPDFModule\Mvc\Service;
 
-use Zend\ServiceManager\FactoryInterface,
-	Zend\ServiceManager\ServiceLocatorInterface,
-	DOMPDFModule\View\Renderer\PdfRenderer;
+use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\ServiceLocatorInterface;
+use DOMPDFModule\View\Renderer\PdfRenderer;
 
 class ViewPdfRendererFactory implements FactoryInterface
 {
@@ -33,11 +33,11 @@ class ViewPdfRendererFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-		$viewManager = $serviceLocator->get('ViewManager');
-		
+        $viewManager = $serviceLocator->get('ViewManager');
+
         $pdfRenderer = new PdfRenderer();
-		$pdfRenderer->setResolver($viewManager->getResolver());
-		
+        $pdfRenderer->setResolver($viewManager->getResolver());
+
         return $pdfRenderer;
     }
 }

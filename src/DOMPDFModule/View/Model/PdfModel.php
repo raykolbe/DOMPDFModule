@@ -23,15 +23,15 @@ use Zend\View\Model\ViewModel;
 
 class PdfModel extends ViewModel
 {
-	/**
+    /**
      * PDF probably won't need to be captured into a 
      * a parent container by default.
      * 
      * @var string
      */
     protected $captureTo = null;
-	
-	/**
+
+    /**
      * PDF is usually terminal
      * 
      * @var bool

@@ -19,9 +19,9 @@
 
 namespace DOMPDFModule\Mvc\Service;
 
-use Zend\ServiceManager\FactoryInterface,
-	Zend\ServiceManager\ServiceLocatorInterface,
-	DOMPDFModule\View\Strategy\PdfStrategy;
+use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\ServiceLocatorInterface;
+use DOMPDFModule\View\Strategy\PdfStrategy;
 
 class ViewPdfStrategyFactory implements FactoryInterface
 {
@@ -38,7 +38,7 @@ class ViewPdfStrategyFactory implements FactoryInterface
     {
         $pdfRenderer = $serviceLocator->get('ViewPdfRenderer');
         $pdfStrategy = new PdfStrategy($pdfRenderer);
-		
+
         return $pdfStrategy;
     }
 }

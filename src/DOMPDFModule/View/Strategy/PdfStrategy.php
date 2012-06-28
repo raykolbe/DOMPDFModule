@@ -19,11 +19,11 @@
 
 namespace DOMPDFModule\View\Strategy;
 
-use DOMPDFModule\View\Model,
-	DOMPDFModule\View\Renderer\PdfRenderer,
-	Zend\EventManager\EventManagerInterface,
-	Zend\EventManager\ListenerAggregateInterface,
-	Zend\View\ViewEvent;
+use DOMPDFModule\View\Model;
+use DOMPDFModule\View\Renderer\PdfRenderer;
+use Zend\EventManager\EventManagerInterface;
+use Zend\EventManager\ListenerAggregateInterface;
+use Zend\View\ViewEvent;
 
 class PdfStrategy implements ListenerAggregateInterface
 {
@@ -85,13 +85,13 @@ class PdfStrategy implements ListenerAggregateInterface
     public function selectRenderer(ViewEvent $e)
     {
         $model = $e->getModel();
-		
+
         if ($model instanceof Model\PdfModel) {
             // PdfModel found
             return $this->renderer;
         }
 
-		return;
+        return;
     }
 
     /**
@@ -109,7 +109,7 @@ class PdfStrategy implements ListenerAggregateInterface
         }
 
         $result = $e->getResult();
-		
+
         if (!is_string($result)) {
             // @todo Potentially throw an exception here since we should *always* get back a result.
             return;
@@ -118,7 +118,7 @@ class PdfStrategy implements ListenerAggregateInterface
         // Populate response
         $response = $e->getResponse();
         $response->setContent($result);
-		$response->headers()->addHeaderLine('content-type', 'application/pdf');
-		//$response->headers()->addHeaderLine('Content-Disposition', 'test.pdf');
+        $response->headers()->addHeaderLine('content-type', 'application/pdf');
+        //$response->headers()->addHeaderLine('Content-Disposition', 'test.pdf');
     }
 }

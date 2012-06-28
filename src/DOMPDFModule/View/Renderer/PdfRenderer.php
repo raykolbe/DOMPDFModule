@@ -19,8 +19,8 @@
 
 namespace DOMPDFModule\View\Renderer;
 
-use Zend\View\Renderer\PhpRenderer,
-	\DOMPDF;
+use Zend\View\Renderer\PhpRenderer;
+use \DOMPDF;
 
 class PdfRenderer extends PhpRenderer
 {
@@ -33,12 +33,12 @@ class PdfRenderer extends PhpRenderer
      */
     public function render($nameOrModel, $values = null)
     {
-		$html = parent::render($nameOrModel, $values);
-		
-		$pdf = new DOMPDF();
-		$pdf->load_html($html);
-		$pdf->render();
-		
-		return $pdf->output();
+        $html = parent::render($nameOrModel, $values);
+
+        $pdf = new DOMPDF();
+        $pdf->load_html($html);
+        $pdf->render();
+
+        return $pdf->output();
     }
 }

@@ -28,6 +28,7 @@ class PdfRenderer extends PhpRenderer
     private $paperSize = 'a4';
     private $paperOrientation = 'portrait';
     private $basePath = '/';
+    private $fileName = null;
     
     public function setPaperSize($size)
     {
@@ -48,6 +49,18 @@ class PdfRenderer extends PhpRenderer
         $this->path = $path;
         
         return $this;
+    }
+    
+    public function setFileName($name)
+    {
+        $this->fileName = $name;
+        
+        return $this;
+    }
+    
+    public function getFileName()
+    {
+        return $this->fileName;
     }
     
     /**

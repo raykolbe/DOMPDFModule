@@ -47,9 +47,16 @@ use DOMPDFModule\View\Model\PdfModel;
 
 class ReportController extends ActionController
 {
-    public function indexAction()
+    public function monthlyReportPdfAction()
     {
-        return new PdfModel(); // Takes same params as Zend\View\Model\ViewModel
+        return new PdfModel(
+            array(), // Variable assignments per Zend\View\Model\ViewModel
+            array(
+                'fileName' => 'monthly-report', // Optional; triggers PDF download, automatically appends ".pdf"
+                'paperSize' => 'a4',
+                'paperOrientation' => 'landscape'
+            )
+        );
     }
 }
 ```

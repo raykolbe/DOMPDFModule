@@ -20,10 +20,36 @@
 namespace DOMPDFModule\View\Renderer;
 
 use Zend\View\Renderer\PhpRenderer;
+use Exception\InvalidArgumentException;
 use \DOMPDF;
 
 class PdfRenderer extends PhpRenderer
 {
+    private $paperSize = 'a4';
+    private $paperOrientation = 'portrait';
+    private $basePath = '/';
+    
+    public function setPaperSize($size)
+    {
+        $this->paperSize = $size;
+        
+        return $this;
+    }
+    
+    public function setPaperOrientation($orientation)
+    {
+        $this->paperOrientation = $orientation;
+        
+        return $this;
+    }
+    
+    public function setBasePath($path)
+    {
+        $this->path = $path;
+        
+        return $this;
+    }
+    
     /**
      * Renders values as a PDF
      *
@@ -34,8 +60,11 @@ class PdfRenderer extends PhpRenderer
     public function render($nameOrModel, $values = null)
     {
         $html = parent::render($nameOrModel, $values);
-
+        
         $pdf = new DOMPDF();
+        $pdf->set_paper($this->paperSize, $this->paperOrientation);
+        $pdf->set_base_path($this->basePath);
+        
         $pdf->load_html($html);
         $pdf->render();
 

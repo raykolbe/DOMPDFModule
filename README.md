@@ -57,4 +57,3 @@ class ReportController extends ActionController
 ## To-do
   - Create tests
   - Add support for DOMPDF CLI
-  - Add support for Content-Disposition header

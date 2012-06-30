@@ -86,7 +86,7 @@ class Module
         }
 
         require_once __DIR__ . "/../../../dompdf/lib/DOMPDF/functions.inc.php";
-        require_once(__DIR__ . '/../../config/module.compat.php');
+        require_once __DIR__ . '/../../config/module.compat.php';
     }
 
     /**

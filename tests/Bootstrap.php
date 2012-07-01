@@ -1,38 +1,37 @@
 <?php
 
-use Zend\Loader\AutoloaderFactory;
+use Zend\ServiceManager\ServiceManager;
+use Zend\Mvc\Service\ServiceManagerConfiguration;
 
 error_reporting( E_ALL | E_STRICT );
 
-$zfCoreLibrary = realpath(dirname(__DIR__)) . "/../../zendframework/zendframework/library";
-$coreTests     = realpath(dirname(__DIR__)) . "/tests";
+chdir(__DIR__);
 
-$path = array(
-    $zfCoreLibrary,
-    $coreTests,
-    get_include_path(),
-);
-
-set_include_path(implode(PATH_SEPARATOR, $path));
-
-/**
- * Setup autoloading - Based on PHP Composer autoload.
- */
-
-chdir(dirname(__DIR__));
-
-if (file_exists(dirname(__DIR__) . '/../../autoload.php')) {
-    $loader = include dirname(__DIR__) . '/../../autoload.php';
+$previousDir = '.';
+while (!file_exists('config/application.config.php')) {
+    $dir = dirname(getcwd());
+    if($previousDir === $dir) {
+        throw new RuntimeException(
+            'Unable to locate "config/application.config.php": ' .
+            'is DOMPDFModule in a subdir of your application skeleton?'
+        );
+    }
+    $previousDir = $dir;
+    chdir($dir);
 }
 
-/*
- * Load the user-defined test configuration file, if it exists; otherwise, load
- * the default configuration.
- */
-//if (is_readable($zfCoreTests . DIRECTORY_SEPARATOR . 'TestConfiguration.php')) {
-//    require_once $zfCoreTests . DIRECTORY_SEPARATOR . 'TestConfiguration.php';
-//} else {
-//    require_once $zfCoreTests . DIRECTORY_SEPARATOR . 'TestConfiguration.php.dist';
-//}
+if (is_readable(__DIR__ . '/TestConfiguration.php')) {
+    $configuration = include_once __DIR__ . '/TestConfiguration.php';
+} else {
+    $configuration = include_once __DIR__ . '/TestConfiguration.php.dist';
+}
 
-unset($coreTests, $zfCoreLibrary, $path);
+// Assumes PHP Composer autoloader w/compiled classmaps, etc.
+require_once('vendor/autoload.php');
+
+$serviceManager = new ServiceManager(new ServiceManagerConfiguration($configuration['service_manager']));
+$serviceManager->setService('ApplicationConfiguration', $configuration);
+$serviceManager->setAllowOverride(true);
+
+$moduleManager = $serviceManager->get('ModuleManager');
+$moduleManager->loadModules();

@@ -64,7 +64,8 @@ class Module
      */
     public function init(ModuleManager $moduleManager)
     {
-        $moduleManager->events()->attach('loadModules.post', array($this, 'loadConfiguration'));
+        $eventManager = $moduleManager->getEventManager();
+        $eventManager->attach('loadModules.post', array($this, 'loadConfiguration'));
     }
 
     /**

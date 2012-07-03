@@ -50,7 +50,7 @@ class PdfStrategyTest extends TestCase
         
         $this->strategy->injectResponse($this->event);
         
-        $headers           = $this->event->getResponse()->headers();
+        $headers           = $this->event->getResponse()->getHeaders();
         $contentTypeHeader = $headers->get('content-type');
         
         $this->assertInstanceof('Zend\Http\Header\ContentType', $contentTypeHeader);
@@ -70,7 +70,7 @@ class PdfStrategyTest extends TestCase
         
         $this->strategy->injectResponse($this->event);
         
-        $headers                  = $this->event->getResponse()->headers();
+        $headers                  = $this->event->getResponse()->getHeaders();
         $contentDispositionHeader = $headers->get('Content-Disposition');
         
         $this->assertInstanceof('Zend\Http\Header\ContentDisposition', $contentDispositionHeader);

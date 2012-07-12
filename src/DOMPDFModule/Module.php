@@ -25,11 +25,11 @@ use Zend\ModuleManager\ModuleEvent;
 class Module
 {
     /**
-    * An array of keys that map DOMPDF define keys to DOMPDFModule config's
-    * keys.
-    * 
-    * @var array
-    */
+     * An array of keys that map DOMPDF define keys to DOMPDFModule config's
+     * keys.
+     * 
+     * @var array
+     */
     private static $configCompatMapping = array(
         'font_directory'            => 'DOMPDF_FONT_DIR',
         'font_cache_directory'      => 'DOMPDF_FONT_CACHE',
@@ -61,6 +61,7 @@ class Module
 
     /**
      * @param ModuleManager $moduleManager
+     * @return void
      */
     public function init(ModuleManager $moduleManager)
     {
@@ -69,7 +70,11 @@ class Module
     }
 
     /**
-     * @param ModuleEvent $e 
+     * Event callback called after modules are loaded, responsible
+     * for loading DOMPDF config.
+     * 
+     * @param ModuleEvent $e
+     * @return void 
      */
     public function loadConfiguration(ModuleEvent $e)
     {

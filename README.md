@@ -44,10 +44,10 @@ Copy `dino/DOMPDFModule/config/module.dompdf.local.php` to `my/project/directory
 
 namespace Application\Controller;
 
-use Zend\Mvc\Controller\ActionController;
+use Zend\Mvc\Controller\AbstractActionController;
 use DOMPDFModule\View\Model\PdfModel;
 
-class ReportController extends ActionController
+class ReportController extends AbstractActionController
 {
     public function monthlyReportPdfAction()
     {

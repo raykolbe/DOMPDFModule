@@ -85,9 +85,12 @@ class PdfStrategy implements ListenerAggregateInterface
     public function selectRenderer(ViewEvent $e)
     {
         $model = $e->getModel();
-
+        
         if ($model instanceof Model\PdfModel) {
-            // PdfModel found
+            $this->renderer->setPaperSize($model->getOption('paperSize'));
+            $this->renderer->setPaperOrientation($model->getOption('paperOrientation'));
+            $this->renderer->setBasePath($model->getOption('basePath'));
+            
             return $this->renderer;
         }
 

@@ -34,10 +34,11 @@ class ViewPdfRendererFactory implements FactoryInterface
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         $viewManager = $serviceLocator->get('ViewManager');
-
+        
         $pdfRenderer = new PdfRenderer();
         $pdfRenderer->setResolver($viewManager->getResolver());
-
+        $pdfRenderer->setHtmlRenderer($viewManager->getRenderer());
+        
         return $pdfRenderer;
     }
 }

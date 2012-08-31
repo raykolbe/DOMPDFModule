@@ -19,16 +19,29 @@
 
 namespace DOMPDFModule\View\Renderer;
 
-use Zend\View\Renderer\PhpRenderer;
-use Exception\InvalidArgumentException;
+use Zend\View\Renderer\RendererInterface as Renderer;
+use Zend\View\Resolver\ResolverInterface as Resolver;
 use \DOMPDF;
 
-class PdfRenderer extends PhpRenderer
+class PdfRenderer implements Renderer
 {
-    private $paperSize = 'a4';
+    private $paperSize = '8x11';
     private $paperOrientation = 'portrait';
     private $basePath = '/';
     private $fileName = null;
+    private $resolver = null;
+    private $htmlRenderer = null;
+    
+    public function setHtmlRenderer(Renderer $renderer)
+    {
+        $this->htmlRenderer = $renderer;
+        return $this;
+    }
+    
+    public function getHtmlRenderer()
+    {
+        return $this->htmlRenderer;
+    }
     
     public function setPaperSize($size)
     {
@@ -72,7 +85,7 @@ class PdfRenderer extends PhpRenderer
      */
     public function render($nameOrModel, $values = null)
     {
-        $html = parent::render($nameOrModel, $values);
+        $html = $this->getHtmlRenderer()->render($nameOrModel, $values);
         
         $pdf = new DOMPDF();
         $pdf->set_paper($this->paperSize, $this->paperOrientation);
@@ -82,5 +95,15 @@ class PdfRenderer extends PhpRenderer
         $pdf->render();
 
         return $pdf->output();
+    }
+
+    public function getEngine()
+    {
+        return $this;
+    }
+
+    public function setResolver(Resolver $resolver)
+    {
+        $this->resolver = $resolver;
     }
 }

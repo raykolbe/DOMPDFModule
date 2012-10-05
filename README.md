@@ -8,7 +8,6 @@ effort on the consumer's end.
 
 ## Requirements
   - [Zend Framework 2](http://www.github.com/zendframework/zf2)
-  - [DOMPDF](https://github.com/raykolbe/dompdf)
 
 ## Installation
 Installation of DOMPDFModule uses PHP Composer. For more information about
@@ -22,7 +21,7 @@ PHP Composer, please visit the official [PHP Composer site](http://getcomposer.o
      ```json
      {
          "require": {
-             "dino/DOMPDFModule": "dev-master"
+             "dino/dompdf-module": "dev-master"
          }
      }
      ```
@@ -35,7 +34,7 @@ PHP Composer, please visit the official [PHP Composer site](http://getcomposer.o
      'DOMPDFModule',
      ```
 #### Configuration options
-Copy `dino/DOMPDFModule/config/module.dompdf.local.php` to `my/project/directory/config/autoload/module.dompdf.local.php` and reference `dino/DOMPDFModule/config/module.config.php` for configration options that you can override.
+You can override options via the `dompdf_module` key in your local or global config files. See DOMPDFModule/config/module.config.php for config options.
 
 ## Usage
 
@@ -51,17 +50,13 @@ class ReportController extends AbstractActionController
 {
     public function monthlyReportPdfAction()
     {
-        return new PdfModel(
-            array(), // Variable assignments per Zend\View\Model\ViewModel
-            array(
-                'fileName' => 'monthly-report', // Optional; triggers PDF download, automatically appends ".pdf"
-                'paperSize' => 'a4',
-                'paperOrientation' => 'landscape'
-            )
-        );
+        $pdf = new PdfModel();
+        $pdf->setOption('filename', 'monthly-report'), // Triggers PDF download, automatically appends ".pdf"
+        $pdf->setOption('paperSize', 'a4'); // Defaults to "8x11"
+        $pdf->setOption('paperOrientation', 'landscape'); // Defaults to "portrait"
     }
 }
 ```
 
 ## To-do
-  - Add support for DOMPDF CLI
+  - Add command line support.

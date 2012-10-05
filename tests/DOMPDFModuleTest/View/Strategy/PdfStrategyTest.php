@@ -61,7 +61,7 @@ class PdfStrategyTest extends TestCase
     {
         $model = new PdfModel();
         $model->setTemplate('basic.phtml');
-        $model->setOption('filename', 'testPdfFileName.pdf');
+        $model->setOption('filename', 'testPdfFileName');
         
         $this->event->setModel($model);
         $this->event->setResponse($this->response);

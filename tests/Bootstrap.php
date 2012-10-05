@@ -1,7 +1,7 @@
 <?php
 
 use Zend\ServiceManager\ServiceManager;
-use Zend\Mvc\Service\ServiceManagerConfiguration;
+use Zend\Mvc\Service\ServiceManagerConfig;
 
 error_reporting( E_ALL | E_STRICT );
 
@@ -29,8 +29,8 @@ if (is_readable(__DIR__ . '/TestConfiguration.php')) {
 // Assumes PHP Composer autoloader w/compiled classmaps, etc.
 require_once('vendor/autoload.php');
 
-$serviceManager = new ServiceManager(new ServiceManagerConfiguration($configuration['service_manager']));
-$serviceManager->setService('ApplicationConfiguration', $configuration);
+$serviceManager = new ServiceManager(new ServiceManagerConfig($configuration['service_manager']));
+$serviceManager->setService('ApplicationConfig', $configuration);
 $serviceManager->setAllowOverride(true);
 
 $moduleManager = $serviceManager->get('ModuleManager');

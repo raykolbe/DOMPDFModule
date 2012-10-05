@@ -2,25 +2,21 @@
 
 namespace DOMPDFModuleTest\View\Strategy;
 
-use Zend\Filter\RealPath;
-
 use Zend\View\Resolver\TemplatePathStack;
-
-use PHPUnit_Framework_TestCase as TestCase;
-use Zend\EventManager\EventManager;
-use Zend\Http\Request as HttpRequest;
+use Zend\View\Renderer\PhpRenderer;
+use Zend\View\ViewEvent;
 use Zend\Http\Response as HttpResponse;
+use PHPUnit_Framework_TestCase as TestCase;
 use DOMPDFModule\View\Model\PdfModel;
-use Zend\View\Model\ViewModel;
 use DOMPDFModule\View\Renderer\PdfRenderer;
 use DOMPDFModule\View\Strategy\PdfStrategy;
-use Zend\View\ViewEvent;
+
 
 class PdfStrategyTest extends TestCase
 {
     public function setUp()
     {
-        $this->renderer = new PdfRenderer;
+        $this->renderer = new PdfRenderer();
         $this->strategy = new PdfStrategy($this->renderer);
         $this->event    = new ViewEvent();
         $this->response = new HttpResponse();
@@ -29,6 +25,10 @@ class PdfStrategyTest extends TestCase
         $this->resolver->addPath(dirname(__DIR__) . '/_templates');
         
         $this->renderer->setResolver($this->resolver);
+        
+        $htmlRenderer = new PhpRenderer();
+        $htmlRenderer->setResolver($this->resolver);
+        $this->renderer->setHtmlRenderer($htmlRenderer);
     }
 
     public function testPdfModelSelectsPdfStrategy()

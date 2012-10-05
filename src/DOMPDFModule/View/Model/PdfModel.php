@@ -24,6 +24,17 @@ use Zend\View\Model\ViewModel;
 class PdfModel extends ViewModel
 {
     /**
+     * Renderer options
+     * @var array
+     */
+    protected $options = array(
+        'paperSize' => '8x11',
+        'paperOrientation' => 'portrait',
+        'basePath' => '/',
+        'fileName' => null
+    );
+    
+    /**
      * PDF probably won't need to be captured into a 
      * a parent container by default.
      * 

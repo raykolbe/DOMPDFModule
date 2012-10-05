@@ -25,10 +25,6 @@ use \DOMPDF;
 
 class PdfRenderer implements Renderer
 {
-    private $paperSize = '8x11';
-    private $paperOrientation = 'portrait';
-    private $basePath = '/';
-    private $fileName = null;
     private $resolver = null;
     private $htmlRenderer = null;
     
@@ -43,39 +39,6 @@ class PdfRenderer implements Renderer
         return $this->htmlRenderer;
     }
     
-    public function setPaperSize($size)
-    {
-        $this->paperSize = $size;
-        
-        return $this;
-    }
-    
-    public function setPaperOrientation($orientation)
-    {
-        $this->paperOrientation = $orientation;
-        
-        return $this;
-    }
-    
-    public function setBasePath($path)
-    {
-        $this->path = $path;
-        
-        return $this;
-    }
-    
-    public function setFileName($name)
-    {
-        $this->fileName = $name;
-        
-        return $this;
-    }
-    
-    public function getFileName()
-    {
-        return $this->fileName;
-    }
-    
     /**
      * Renders values as a PDF
      *
@@ -87,13 +50,17 @@ class PdfRenderer implements Renderer
     {
         $html = $this->getHtmlRenderer()->render($nameOrModel, $values);
         
+        $paperSize = $nameOrModel->getOption('paperSize');
+        $paperOrientation = $nameOrModel->getOption('paperOrientation');
+        $basePath = $nameOrModel->getOption('basePath');
+        
         $pdf = new DOMPDF();
-        $pdf->set_paper($this->paperSize, $this->paperOrientation);
-        $pdf->set_base_path($this->basePath);
+        $pdf->set_paper($paperSize, $paperOrientation);
+        $pdf->set_base_path($basePath);
         
         $pdf->load_html($html);
         $pdf->render();
-
+        
         return $pdf->output();
     }
 

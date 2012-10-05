@@ -87,10 +87,6 @@ class PdfStrategy implements ListenerAggregateInterface
         $model = $e->getModel();
         
         if ($model instanceof Model\PdfModel) {
-            $this->renderer->setPaperSize($model->getOption('paperSize'));
-            $this->renderer->setPaperOrientation($model->getOption('paperOrientation'));
-            $this->renderer->setBasePath($model->getOption('basePath'));
-            
             return $this->renderer;
         }
 
@@ -122,10 +118,11 @@ class PdfStrategy implements ListenerAggregateInterface
         $response->setContent($result);
         $response->getHeaders()->addHeaderLine('content-type', 'application/pdf');
         
-        if ($renderer->getFileName()) {
+        $fileName = $e->getModel()->getOption('filename');
+        if (isset($fileName)) {
             $response->getHeaders()->addHeaderLine(
             	'Content-Disposition', 
-            	'attachment; filename=' . $renderer->getFileName());
+            	'attachment; filename=' . $e->getModel()->getOption('filename'));
         }
     }
 }

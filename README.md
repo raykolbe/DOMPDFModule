@@ -64,5 +64,4 @@ class ReportController extends AbstractActionController
 ```
 
 ## To-do
-  - Create tests
   - Add support for DOMPDF CLI

@@ -76,14 +76,14 @@ class Module
      * @param ModuleEvent $e
      * @return void 
      */
-    public function loadConfiguration(ModuleEvent $e)
+    public function loadConfiguration(ModuleEvent $event)
     {
-        define("DOMPDF_LIB_DIR", __DIR__ . '/../../../dompdf/lib/vendor');
+        define("DOMPDF_DIR", __DIR__ . '/../../vendor/dompdf');
+        define("DOMPDF_INC_DIR", DOMPDF_DIR . "/include");
+        define("DOMPDF_LIB_DIR", DOMPDF_DIR . "/lib");
 
-        $mergedConfig = $e->getConfigListener()->getMergedConfig();
-        $config = $mergedConfig['dompdf_module'];
-
-        foreach ($config as $key => $value) {
+        $config = $event->getConfigListener()->getMergedConfig();
+        foreach ($config['dompdf_module'] as $key => $value) {
             if (! array_key_exists($key, self::$configCompatMapping)) {
                 continue;
             }
@@ -91,7 +91,11 @@ class Module
             define(self::$configCompatMapping[$key], $value);
         }
 
-        require_once __DIR__ . "/../../../dompdf/lib/DOMPDF/functions.inc.php";
+        define("DOMPDF_AUTOLOAD_PREPEND", false);
+        
+        require_once DOMPDF_INC_DIR . '/functions.inc.php';
+        require_once DOMPDF_LIB_DIR . '/html5lib/Parser.php';
+        require_once DOMPDF_INC_DIR . '/autoload.inc.php';
         require_once __DIR__ . '/../../config/module.compat.php';
     }
 
@@ -101,5 +105,16 @@ class Module
     public function getConfig()
     {
         return include __DIR__ . '/../../config/module.config.php';
+    }
+    
+    public function getAutoloaderConfig()
+    {
+        return array(
+            'Zend\Loader\StandardAutoloader' => array(
+                'namespaces' => array(
+                    __NAMESPACE__ => __DIR__ ,
+                ),
+            ),
+        );
     }
 }

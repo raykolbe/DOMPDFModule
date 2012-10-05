@@ -29,7 +29,7 @@ return array(
          *
          * *Please note the trailing slash.*
          */
-        'font_directory' => __DIR__ . '/../../dompdf/lib/vendor/fonts/',
+        'font_directory' => __DIR__ . '/../vendor/dompdf/lib/fonts/',
 
         /**
          * The location of the DOMPDF font cache directory
@@ -39,7 +39,7 @@ return array(
          * It contains the .afm files, on demand parsed, converted to php syntax and cached
          * This folder can be the same as DOMPDF_FONT_DIR
          */
-        'font_cache_directory' => __DIR__ . '/../../data/dompdf/cache/',
+        'font_cache_directory' => __DIR__ . '/../vendor/dompdf/data/dompdf/cache/',
 
         /**
          * The location of a temporary directory.
@@ -62,7 +62,7 @@ return array(
          * direct class use like:
          * $dompdf = new DOMPDF();	$dompdf->load_html($htmldata); $dompdf->render(); $pdfdata = $dompdf->output();
          */
-        'chroot' => realpath(__DIR__ . '/../'),
+        'chroot' => realpath(__DIR__ . '/../vendor/dompdf/'),
 
         /**
          * Whether to use Unicode fonts or not.
@@ -273,6 +273,6 @@ return array(
         'factories'    => array(
             'ViewPdfRenderer' => 'DOMPDFModule\Mvc\Service\ViewPdfRendererFactory',
             'ViewPdfStrategy' => 'DOMPDFModule\Mvc\Service\ViewPdfStrategyFactory',
-        ),
+        )
     ),
 );

@@ -38,7 +38,7 @@ class ViewPdfStrategyFactory implements FactoryInterface
     {
         $pdfRenderer = $serviceLocator->get('ViewPdfRenderer');
         $pdfStrategy = new PdfStrategy($pdfRenderer);
-
+        
         return $pdfStrategy;
     }
 }

@@ -3,21 +3,20 @@
     "type": "library",
     "description": "A Zend Framework 2 module for incorporating DOMPDF support.",
     "keywords": ["pdf","dompdf", "zf2"],
-    "homepage": "",
+    "homepage": "http://raymondkolbe.com",
     "license": "MIT",
     "authors": [
-		{
-            "name": "Raymond Kolbe",
-            "email": "raymond.kolbe@maine.edu"
+        {
+        "name": "Raymond Kolbe",
+        "email": "raymond.kolbe@maine.edu"
         }
     ],
     "require": {
-        "php": ">=5.3.0",
-		"dino/dompdf": "0.1.*"
+        "php": ">=5.3.0"
     },
     "autoload": {
         "psr-0": {
-			"DOMPDFModule": "src/"
-		}
+            "DOMPDFModule": "src/"
+        }
     }
 }

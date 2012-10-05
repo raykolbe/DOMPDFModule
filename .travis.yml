@@ -13,7 +13,6 @@ before_script:
   - curl -s http://getcomposer.org/installer | php
   - php composer.phar install
   - rm -rf vendor/dino/dompdf-module
-  - mkdir -p vendor/dino/dompdf-module
   - cp -r ../DOMPDFModule vendor/dino/dompdf-module
 
 script:

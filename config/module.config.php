@@ -275,4 +275,33 @@ return array(
             'ViewPdfStrategy' => 'DOMPDFModule\Mvc\Service\ViewPdfStrategyFactory',
         )
     ),
+    'controllers' => array(
+        'invokables' => array(
+            'DOMPDFModule\Controller\CommandLineController' => 'DOMPDFModule\Controller\CommandLineController'
+        )
+    ),
+    'console' => array(
+        'router' => array(
+            'routes' => array(
+                'install-system-fonts' => array(
+                    'options' => array(
+                        'route' => 'install system_fonts',
+                        'defaults' => array(
+                            'controller' => 'DOMPDFModule\Controller\CommandLineController',
+                            'action' => 'install-system-fonts'
+                        )
+                    )
+                ),
+                'install-fonts' => array(
+                    'options' => array(
+                        'route' => 'install font_family <name> <file> [<bold_file>] [<italic_file>] [<bold_italic_file>]',
+                        'defaults' => array(
+                            'controller' => 'DOMPDFModule\Controller\CommandLineController',
+                            'action' => 'install-font-family'
+                        )
+                    )
+                )
+            )
+        )
+    )
 );

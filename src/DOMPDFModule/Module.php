@@ -19,7 +19,6 @@
 
 namespace DOMPDFModule;
 
-use Zend\ModuleManager\ModuleManager;
 use Zend\ModuleManager\Feature\ConsoleUsageProviderInterface;
 use Zend\Console\Adapter\AdapterInterface as Console;
 
@@ -30,16 +29,6 @@ use Zend\Console\Adapter\AdapterInterface as Console;
  */
 class Module implements ConsoleUsageProviderInterface
 {
-    /**
-     * @param ModuleManager $moduleManager
-     * @return void
-     */
-    public function init(ModuleManager $moduleManager)
-    {
-        $eventManager = $moduleManager->getEventManager();
-        $eventManager->attach('loadModules.post', array(new Module\ConfigListener(), 'loadConfig'));
-    }
-
     /**
      * @return array
      */
@@ -53,7 +42,7 @@ class Module implements ConsoleUsageProviderInterface
         return array(
             'Zend\Loader\StandardAutoloader' => array(
                 'namespaces' => array(
-                    __NAMESPACE__ => __DIR__ ,
+                    __NAMESPACE__ => __DIR__
                 ),
             ),
         );

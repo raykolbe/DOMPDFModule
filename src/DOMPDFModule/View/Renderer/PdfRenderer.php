@@ -21,10 +21,11 @@ namespace DOMPDFModule\View\Renderer;
 
 use Zend\View\Renderer\RendererInterface as Renderer;
 use Zend\View\Resolver\ResolverInterface as Resolver;
-use \DOMPDF;
+use DOMPDF;
 
 class PdfRenderer implements Renderer
 {
+    private $dompdf = null;
     private $resolver = null;
     private $htmlRenderer = null;
     
@@ -37,6 +38,17 @@ class PdfRenderer implements Renderer
     public function getHtmlRenderer()
     {
         return $this->htmlRenderer;
+    }
+    
+    public function setEngine(DOMPDF $dompdf)
+    {
+        $this->dompdf = $dompdf;
+        return $this;
+    }
+    
+    public function getEngine()
+    {
+        return $this->dompdf;
     }
     
     /**
@@ -54,7 +66,7 @@ class PdfRenderer implements Renderer
         $paperOrientation = $nameOrModel->getOption('paperOrientation');
         $basePath = $nameOrModel->getOption('basePath');
         
-        $pdf = new DOMPDF();
+        $pdf = $this->getEngine();
         $pdf->set_paper($paperSize, $paperOrientation);
         $pdf->set_base_path($basePath);
         
@@ -64,13 +76,9 @@ class PdfRenderer implements Renderer
         return $pdf->output();
     }
 
-    public function getEngine()
-    {
-        return $this;
-    }
-
     public function setResolver(Resolver $resolver)
     {
         $this->resolver = $resolver;
+        return $this;
     }
 }

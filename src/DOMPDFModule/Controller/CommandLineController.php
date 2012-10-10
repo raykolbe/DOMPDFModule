@@ -4,7 +4,7 @@ namespace DOMPDFModule\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController as Controller;
 use DOMPDFModule\Font\FontFamilyInstaller;
-use \Font_Metrics as FontMetrics;
+use Font_Metrics as FontMetrics;
 
 class CommandLineController extends Controller
 {
@@ -36,7 +36,6 @@ class CommandLineController extends Controller
         $fonts = FontMetrics::get_system_fonts();
         
         foreach ($fonts as $family => $files) {
-            
             if (!isset($files['normal'])) {
                 continue;
             }

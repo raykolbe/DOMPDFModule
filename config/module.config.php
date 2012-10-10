@@ -1,5 +1,7 @@
 <?php
 
+namespace DOMPDFModule;
+
 return array(
     'dompdf_module' => array(
         /**
@@ -270,9 +272,17 @@ return array(
         )
     ),
     'service_manager' => array(
-        'factories'    => array(
-            'ViewPdfRenderer' => 'DOMPDFModule\Mvc\Service\ViewPdfRendererFactory',
-            'ViewPdfStrategy' => 'DOMPDFModule\Mvc\Service\ViewPdfStrategyFactory',
+        'shared' => array(
+            /**
+             * DOMPDF itself has issues rendering twice in a row so we force a
+             * new instance to be created.
+             */
+            'DOMPDF' => false
+        ),
+        'factories' => array(
+            'DOMPDF'          => __NAMESPACE__ . '\Service\DOMPDFFactory',
+            'ViewPdfRenderer' => __NAMESPACE__ . '\Mvc\Service\ViewPdfRendererFactory',
+            'ViewPdfStrategy' => __NAMESPACE__ . '\Mvc\Service\ViewPdfStrategyFactory',
         )
     ),
     'controllers' => array(

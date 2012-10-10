@@ -38,8 +38,8 @@ class ViewPdfRendererFactory implements FactoryInterface
         $pdfRenderer = new PdfRenderer();
         $pdfRenderer->setResolver($viewManager->getResolver());
         $pdfRenderer->setHtmlRenderer($viewManager->getRenderer());
+        $pdfRenderer->setEngine($serviceLocator->get('dompdf'));
         
         return $pdfRenderer;
     }
 }
-

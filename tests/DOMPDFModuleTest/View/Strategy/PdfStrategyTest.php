@@ -6,11 +6,10 @@ use Zend\View\Resolver\TemplatePathStack;
 use Zend\View\Renderer\PhpRenderer;
 use Zend\View\ViewEvent;
 use Zend\Http\Response as HttpResponse;
-use PHPUnit_Framework_TestCase as TestCase;
+use DOMPDFModuleTest\Framework\TestCase;
 use DOMPDFModule\View\Model\PdfModel;
 use DOMPDFModule\View\Renderer\PdfRenderer;
 use DOMPDFModule\View\Strategy\PdfStrategy;
-
 
 class PdfStrategyTest extends TestCase
 {
@@ -29,6 +28,7 @@ class PdfStrategyTest extends TestCase
         $htmlRenderer = new PhpRenderer();
         $htmlRenderer->setResolver($this->resolver);
         $this->renderer->setHtmlRenderer($htmlRenderer);
+        $this->renderer->setEngine($this->getServiceManager()->get('dompdf'));
     }
 
     public function testPdfModelSelectsPdfStrategy()

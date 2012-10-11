@@ -287,7 +287,7 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'DOMPDFModule\Controller\CommandLineController' => 'DOMPDFModule\Controller\CommandLineController'
+            'DOMPDFConsole' => 'DOMPDFModule\Controller\ConsoleController'
         )
     ),
     'console' => array(
@@ -297,7 +297,7 @@ return array(
                     'options' => array(
                         'route' => 'install system_fonts',
                         'defaults' => array(
-                            'controller' => 'DOMPDFModule\Controller\CommandLineController',
+                            'controller' => 'DOMPDFConsole',
                             'action' => 'install-system-fonts'
                         )
                     )
@@ -306,7 +306,7 @@ return array(
                     'options' => array(
                         'route' => 'install font_family <name> <file> [<bold_file>] [<italic_file>] [<bold_italic_file>]',
                         'defaults' => array(
-                            'controller' => 'DOMPDFModule\Controller\CommandLineController',
+                            'controller' => 'DOMPDFConsole',
                             'action' => 'install-font-family'
                         )
                     )

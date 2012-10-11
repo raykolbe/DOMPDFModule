@@ -6,7 +6,7 @@ use Zend\Mvc\Controller\AbstractActionController as Controller;
 use DOMPDFModule\Font\FontFamilyInstaller;
 use Font_Metrics as FontMetrics;
 
-class CommandLineController extends Controller
+class ConsoleController extends Controller
 {
     public function installFontFamilyAction()
     {

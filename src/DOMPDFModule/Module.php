@@ -51,7 +51,14 @@ class Module implements ConsoleUsageProviderInterface
     public function getConsoleUsage(Console $console)
     {
         return array(
-            'Sample DOMPDF usage message'
+            'install system_fonts' => 'Installs system-installed fonts to DOMPDF font directory.',
+            'install font_family <name> <file> [<bold_file>] [<italic_file>] [<bold_italic_file>]' => 'Installs font(s) to DOMPDF font directory',
+            
+            array('<name>'             , 'Font family name'),
+            array('<file>'             , 'Path to .otf or .ttf regular font file'),
+            array('<bold_file>'        , 'Path to .otf or .ttf bold font file'),
+            array('<italic_file>'      , 'Path to .otf or .ttf italic font file'),
+            array('<bold_italic_file>' , 'Path to .otf or .ttf bold italic font file')
         );
     }
 }

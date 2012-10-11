@@ -11,9 +11,6 @@ use \Font as FontLib;
  *       proper automatic font additions of bold, italic, bold italic.
  * 
  * @see http://v1.jontangerine.com/silo/typography/naming/ for naming scheme.
- * 
- * @todo Rename class to TypefaceInstaller since Typeface is what we are installing,
- *       and "Fonts" are the individual files (e.g. bold, italic, etc).
  */
 class FontFamilyInstaller
 {
@@ -155,17 +152,17 @@ class FontFamilyInstaller
         $fontMap = array();
         
         foreach ($fonts as $type => $info) {
-            $destination = new FileInfo($this->getFontDirectory()->getRealPath() . DIRECTORY_SEPARATOR . $info->getBasename());
-            
             if (null == $info) {
                 /**
                  * Font not found, default to using the 'normal' font as an additional font.
                  */
-                $fontMap[$type] = $destination->getPath() .
+                $fontMap[$type] = $this->getFontDirectory()->getRealPath() .
                                   DIRECTORY_SEPARATOR .
-                                  $destination->getBasename('.' . $destination->getExtension());
+                                  $fonts['normal']->getBasename('.' . $destination->getExtension());
                 continue;
             }
+            
+            $destination = new FileInfo($this->getFontDirectory()->getRealPath() . DIRECTORY_SEPARATOR . $info->getBasename());
             
             if (!copy($info->getRealPath(), $destination->getPath() . DIRECTORY_SEPARATOR .$destination->getBasename())) {
                 throw new \RuntimeException(sprintf(

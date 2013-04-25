@@ -51,7 +51,7 @@ class ReportController extends AbstractActionController
     public function monthlyReportPdfAction()
     {
         $pdf = new PdfModel();
-        $pdf->setOption('filename', 'monthly-report'), // Triggers PDF download, automatically appends ".pdf"
+        $pdf->setOption('filename', 'monthly-report'); // Triggers PDF download, automatically appends ".pdf"
         $pdf->setOption('paperSize', 'a4'); // Defaults to "8x11"
         $pdf->setOption('paperOrientation', 'landscape'); // Defaults to "portrait"
 

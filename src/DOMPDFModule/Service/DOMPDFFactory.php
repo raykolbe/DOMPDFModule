@@ -72,7 +72,7 @@ class DOMPDFFactory implements FactoryInterface
         $config = $config['dompdf_module'];
         
         if (defined('DOMPDF_DIR') === false) {
-            define("DOMPDF_DIR", __DIR__ . '/../../../vendor/dompdf');
+            define("DOMPDF_DIR", __DIR__ . '/../../../../vendor/dompdf');
         }
         
         if (defined('DOMPDF_INC_DIR') === false) {

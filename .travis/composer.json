@@ -3,6 +3,6 @@
         "php": ">=5.3.3",
         "zendframework/zendframework": "dev-master",
         "dompdf/dompdf": "dev-master",
-        "dino/dompdf-module": "2.0.*"
+        "dino/dompdf-module": "0.2.*"
     }
 }

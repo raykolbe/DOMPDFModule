@@ -86,6 +86,15 @@ class DOMPDFFactory implements FactoryInterface
         if (defined('DOMPDF_AUTOLOAD_PREPEND') === false) {
             define("DOMPDF_AUTOLOAD_PREPEND", false);
         }
+
+        if (defined('DOMPDF_ADMIN_USERNAME') === false) {
+            define("DOMPDF_ADMIN_USERNAME", false);
+        }
+
+        if (defined('DOMPDF_ADMIN_PASSWORD') === false) {
+            define("DOMPDF_ADMIN_PASSWORD", false);
+        }
+
         
         foreach ($config as $key => $value) {
             if (! array_key_exists($key, static::$configCompatMapping)) {

@@ -2,7 +2,6 @@
     "require": {
         "php": ">=5.3.3",
         "zendframework/zendframework": "dev-master",
-        "dompdf/dompdf": "dev-master",
-        "dino/dompdf-module": "0.2.*"
+        "dino/dompdf-module": "0.3.*"
     }
 }

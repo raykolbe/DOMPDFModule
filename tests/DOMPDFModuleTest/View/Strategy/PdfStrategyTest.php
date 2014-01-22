@@ -76,4 +76,24 @@ class PdfStrategyTest extends TestCase
         $this->assertInstanceof('Zend\Http\Header\ContentDisposition', $contentDispositionHeader);
         $this->assertEquals($contentDispositionHeader->getFieldValue(), 'attachment; filename=testPdfFileName.pdf');
     }
+    public function testResponseHeadersWithoutAttachment()
+    {
+    	$model = new PdfModel();
+    	$model->setTemplate('basic.phtml');
+    	$model->setOption('filename', 'testPdfFileName');
+    	$model->setOption('attachment', false);
+    
+    	$this->event->setModel($model);
+    	$this->event->setResponse($this->response);
+    	$this->event->setRenderer($this->renderer);
+    	$this->event->setResult($this->renderer->render($model));
+    
+    	$this->strategy->injectResponse($this->event);
+    
+    	$headers                  = $this->event->getResponse()->getHeaders();
+    	$contentDispositionHeader = $headers->get('Content-Disposition');
+    
+    	$this->assertInstanceof('Zend\Http\Header\ContentDisposition', $contentDispositionHeader);
+    	$this->assertEquals($contentDispositionHeader->getFieldValue(), 'filename=testPdfFileName.pdf');
+    }
 }

@@ -28,6 +28,8 @@ class PdfRenderer implements Renderer
     private $dompdf = null;
     private $resolver = null;
     private $htmlRenderer = null;
+    private $yPageCounter = null;
+    private $xPageCounter = null;
     
     public function setHtmlRenderer(Renderer $renderer)
     {
@@ -65,6 +67,11 @@ class PdfRenderer implements Renderer
         $paperSize = $nameOrModel->getOption('paperSize');
         $paperOrientation = $nameOrModel->getOption('paperOrientation');
         $basePath = $nameOrModel->getOption('basePath');
+        $textPageCounter = $nameOrModel->getOption('textPageCounter');
+        $positionPageCounter = $nameOrModel->getOption('positionPageCounter');
+        $fontPageCounter = \Font_Metrics::get_font("helvetica", "normal");
+        $sizeFontPageCounter = 9;
+        $width_text_counter = mb_strwidth($textPageCounter);
         
         $pdf = $this->getEngine();
         $pdf->set_paper($paperSize, $paperOrientation);
@@ -72,6 +79,12 @@ class PdfRenderer implements Renderer
         
         $pdf->load_html($html);
         $pdf->render();
+
+        if($positionPageCounter != 'none') {
+            $canvas = $pdf->get_canvas();
+            $this->calculatePositionCounterPage($positionPageCounter, $canvas->get_width(), $canvas->get_height(), $width_text_counter);
+            $canvas->page_text($this->xPageCounter, $this->yPageCounter, $textPageCounter, $fontPageCounter, $sizeFontPageCounter);
+        }
         
         return $pdf->output();
     }
@@ -80,5 +93,48 @@ class PdfRenderer implements Renderer
     {
         $this->resolver = $resolver;
         return $this;
+    }
+
+    /**
+     * Calculates coordinates x and y where the text 'textPageCounter' (property) where will be printed
+     * 
+     * @param string  $positionPageCounter The fixed position
+     * @param integer $page_width          The width of page
+     * @param integer $page_height         The height of page
+     * @param string  $width_text          The width value calculated of 'textPageCounter' (property)
+     */
+    private function calculatePositionCounterPage($positionPageCounter, $page_width, $page_height, $width_text)
+    {
+        switch ($positionPageCounter)
+        {
+            case 'top-center':
+                $this->yPageCounter = 15;
+                $this->xPageCounter = $page_width/2 - $width_text/2;
+                break;
+            case 'top-left':
+                $this->yPageCounter = 15;
+                $this->xPageCounter = 15;
+                break;
+            case 'top-right':
+                $this->yPageCounter = 15;
+                $this->xPageCounter = $page_width - 15 - $width_text;
+                break;
+            case 'bottom-left':
+                $this->yPageCounter = $page_height - 24;
+                $this->xPageCounter = 15;
+                break;
+            case 'bottom-center':
+                $this->yPageCounter = $page_height - 24;
+                $this->xPageCounter = $page_width/2 - $width_text/2;
+                break;
+            case 'bottom-right':
+                $this->yPageCounter = $page_height - 24;
+                $this->xPageCounter = $page_width - 15 - $width_text;
+                break;
+            default:
+                $this->yPageCounter = $page_height - 24;
+                $this->xPageCounter = $page_width - 15 - $width_text;
+                break;
+         }
     }
 }

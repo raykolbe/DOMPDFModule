@@ -1,6 +1,8 @@
 DOMPDFModule
 ============
 
+Project based on https://github.com/raykolbe/DOMPDFModule
+
 Master: [![Build Status](https://secure.travis-ci.org/raykolbe/DOMPDFModule.png?branch=master)](http://travis-ci.org/raykolbe/DOMPDFModule)
 
 The DOMPDF module integrates the DOMPDF library with Zend Framework 2 with minimal
@@ -21,7 +23,7 @@ PHP Composer, please visit the official [PHP Composer site](http://getcomposer.o
      ```json
      {
          "require": {
-             "dino/dompdf-module": "dev-master"
+             "victor-alencar/dompdf-module": "dev-master"
          }
      }
      ```
@@ -54,7 +56,12 @@ class ReportController extends AbstractActionController
         $pdf->setOption('filename', 'monthly-report'); // Triggers PDF download, automatically appends ".pdf"
         $pdf->setOption('paperSize', 'a4'); // Defaults to "8x11"
         $pdf->setOption('paperOrientation', 'landscape'); // Defaults to "portrait"
+        $pdf->setOption('positionPageCounter', 'top-center'); // Defaults to "none". accepted values: "top-left", "top-center", "top-right", "bottom-left", "bottom-center", "bottom-right"
+        $pdf->setOption('textPageCounter', '{PAGE_NUM}/{PAGE_COUNT}'); // Defaults to "Page {PAGE_NUM} of {PAGE_COUNT}"
         
+        // or use array
+        // $pdf->setOptions(array('filename' => 'monthly-report', 'paperSize' => 'a4', ... ));
+
         // To set view variables
         $pdf->setVariables(array(
           'message' => 'Hello'

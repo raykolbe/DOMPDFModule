@@ -31,7 +31,9 @@ class PdfModel extends ViewModel
         'paperSize' => '8x11',
         'paperOrientation' => 'portrait',
         'basePath' => '/',
-        'fileName' => null
+        'fileName' => null,
+        'positionPageCounter' => 'none',
+        'textPageCounter' => 'Page {PAGE_NUM} of {PAGE_COUNT}'
     );
     
     /**

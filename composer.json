@@ -1,9 +1,9 @@
 {
-    "name": "dino/dompdf-module",
+    "name": "victorAlencar/dompdf-module",
     "type": "library",
-    "description": "A Zend Framework 2 module for incorporating DOMPDF support.",
+    "description": "A Zend Framework 2 module for incorporating DOMPDF support. Based on https://github.com/raykolbe/DOMPDFModule",
     "keywords": ["pdf","dompdf", "zf2"],
-    "homepage": "http://raymondkolbe.com",
+    "homepage": "https://github.com/VictorAlencar/DOMPDFModule",
     "license": "MIT",
     "authors": [
         {

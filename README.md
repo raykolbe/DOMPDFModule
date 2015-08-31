@@ -1,6 +1,8 @@
 DOMPDFModule
 ============
 
+Project based on https://github.com/raykolbe/DOMPDFModule
+
 Master: [![Build Status](https://secure.travis-ci.org/raykolbe/DOMPDFModule.png?branch=master)](http://travis-ci.org/raykolbe/DOMPDFModule)
 
 The DOMPDF module integrates the DOMPDF library with Zend Framework 2 with minimal
@@ -21,7 +23,7 @@ PHP Composer, please visit the official [PHP Composer site](http://getcomposer.o
      ```json
      {
          "require": {
-             "dino/dompdf-module": "dev-master"
+             "victorAlencar/dompdf-module": "dev-master"
          }
      }
      ```

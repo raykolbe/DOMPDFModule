@@ -1,5 +1,5 @@
 {
-    "name": "victorAlencar/dompdf-module",
+    "name": "victor-alencar/dompdf-module",
     "type": "library",
     "description": "A Zend Framework 2 module for incorporating DOMPDF support. Based on https://github.com/raykolbe/DOMPDFModule",
     "keywords": ["pdf","dompdf", "zf2"],

@@ -23,7 +23,7 @@ PHP Composer, please visit the official [PHP Composer site](http://getcomposer.o
      ```json
      {
          "require": {
-             "victorAlencar/dompdf-module": "dev-master"
+             "victor-alencar/dompdf-module": "dev-master"
          }
      }
      ```

@@ -13,6 +13,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * @author Raymond J. Kolbe <raymond.kolbe@maine.edu>
+ * @author Márcio Dias <marciojr91@gmail.com>
  * @copyright Copyright (c) 2012 University of Maine
  * @license	http://www.opensource.org/licenses/mit-license.php MIT License
  */
@@ -28,18 +29,20 @@ class ViewPdfRendererFactory implements FactoryInterface
     /**
      * Create and return the PDF view renderer
      *
-     * @param  ServiceLocatorInterface $serviceLocator 
+     * @param  ServiceLocatorInterface $serviceLocator
      * @return PdfRenderer
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $viewManager = $serviceLocator->get('ViewManager');
-        
+
+        $resolver = $serviceLocator->get('ViewResolver');
+        $renderer = $serviceLocator->get('ViewRenderer');
+
         $pdfRenderer = new PdfRenderer();
-        $pdfRenderer->setResolver($viewManager->getResolver());
-        $pdfRenderer->setHtmlRenderer($viewManager->getRenderer());
+        $pdfRenderer->setResolver($resolver);
+        $pdfRenderer->setHtmlRenderer($renderer);
         $pdfRenderer->setEngine($serviceLocator->get('dompdf'));
-        
+
         return $pdfRenderer;
     }
 }

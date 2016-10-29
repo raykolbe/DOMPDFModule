@@ -12,8 +12,8 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- * @author Raymond J. Kolbe <raymond.kolbe@maine.edu>
- * @copyright Copyright (c) 2012 University of Maine
+ * @author Raymond J. Kolbe <rkolbe@gmail.com>
+ * @copyright Copyright (c) 2012 University of Maine, 2016 Raymond J. Kolbe
  * @license	http://www.opensource.org/licenses/mit-license.php MIT License
  */
 

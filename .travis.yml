@@ -5,7 +5,7 @@ php:
 
 before_script:
   - cd ..
-  - git clone --branch zf/release-2.0.0beta4 https://github.com/zendframework/ZendSkeletonApplication.git
+  - git clone --branch zf/release-2.1.6 https://github.com/zendframework/ZendSkeletonApplication.git
   - cd ZendSkeletonApplication
   - rm .gitmodules
   - git rm --cached vendor/ZF2

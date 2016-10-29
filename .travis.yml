@@ -1,14 +1,12 @@
 language: php
 
 php:
-  - 5.3
+  - 5.3.3
 
 before_script:
   - cd ..
   - git clone --branch zf/release-2.1.6 https://github.com/zendframework/ZendSkeletonApplication.git
   - cd ZendSkeletonApplication
-  - rm .gitmodules
-  - git rm --cached vendor/ZF2
   - cp ../DOMPDFModule/.travis/composer.json ./
   - curl -s http://getcomposer.org/installer | php
   - php composer.phar install

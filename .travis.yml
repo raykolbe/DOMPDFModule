@@ -11,4 +11,4 @@ script:
   - vendor/bin/phpunit tests -v -c tests/phpunit.xml
 
 after_script:
-  - echo $CODECLIMATE_REPO_TOKEN vendor/bin/test-reporter
+  - vendor/bin/test-reporter

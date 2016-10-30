@@ -1,5 +1,8 @@
 language: php
 
+matrix:
+  fast_finish: true
+
 php:
   - 5.3.29
 
@@ -8,7 +11,7 @@ before_script:
   - php composer.phar install
 
 script:
-  - vendor/bin/phpunit tests -v -c tests/phpunit.xml
+  - vendor/bin/phpcs --standard=PSR2 src && vendor/bin/phpcs --standard=PSR2 config && vendor/bin/phpcs --standard=PSR2 tests && vendor/bin/phpunit tests -v -c tests/phpunit.xml
 
-after_script:
+after_success:
   - vendor/bin/test-reporter

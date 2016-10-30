@@ -28,7 +28,7 @@ class DOMPDFFactory implements FactoryInterface
     /**
      * An array of keys that map DOMPDF define keys to DOMPDFModule config's
      * keys.
-     * 
+     *
      * @var array
      */
     private static $configCompatMapping = array(
@@ -62,8 +62,8 @@ class DOMPDFFactory implements FactoryInterface
     
     /**
      * Creates an instance of DOMPDF.
-     * 
-     * @param  ServiceLocatorInterface $serviceLocator 
+     *
+     * @param  ServiceLocatorInterface $serviceLocator
      * @return DOMPDF
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
@@ -106,7 +106,7 @@ class DOMPDFFactory implements FactoryInterface
             
             define(static::$configCompatMapping[$key], $value);
         }
-		
+
         require_once DOMPDF_LIB_DIR . '/html5lib/Parser.php';
         require_once DOMPDF_INC_DIR . '/functions.inc.php';
         require_once __DIR__ . '/../../../config/module.compat.php';
@@ -114,4 +114,3 @@ class DOMPDFFactory implements FactoryInterface
         return new DOMPDF();
     }
 }
-

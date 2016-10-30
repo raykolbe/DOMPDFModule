@@ -125,8 +125,9 @@ class PdfStrategy implements ListenerAggregateInterface
             }
             
             $response->getHeaders()->addHeaderLine(
-            	'Content-Disposition', 
-            	'attachment; filename=' . $fileName);
+                'Content-Disposition',
+                'attachment; filename=' . $fileName
+            );
         }
     }
 }

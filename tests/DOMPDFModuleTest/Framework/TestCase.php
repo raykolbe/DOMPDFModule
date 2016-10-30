@@ -41,6 +41,6 @@ class TestCase extends \PHPUnit_Framework_TestCase
      */
     public function getServiceManager()
     {
-    	return self::$serviceManager;
+        return self::$serviceManager;
     }
 }

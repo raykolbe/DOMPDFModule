@@ -28,7 +28,7 @@ class ViewPdfRendererFactory implements FactoryInterface
     /**
      * Create and return the PDF view renderer
      *
-     * @param  ServiceLocatorInterface $serviceLocator 
+     * @param  ServiceLocatorInterface $serviceLocator
      * @return PdfRenderer
      */
     public function createService(ServiceLocatorInterface $serviceLocator)

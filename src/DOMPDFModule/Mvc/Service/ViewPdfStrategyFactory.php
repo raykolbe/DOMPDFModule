@@ -31,7 +31,7 @@ class ViewPdfStrategyFactory implements FactoryInterface
      * Retrieves the ViewPdfRenderer service from the service locator, and
      * injects it into the constructor for the PDF strategy.
      *
-     * @param  ServiceLocatorInterface $serviceLocator 
+     * @param  ServiceLocatorInterface $serviceLocator
      * @return PdfStrategy
      */
     public function createService(ServiceLocatorInterface $serviceLocator)

@@ -7,21 +7,6 @@ use Zend\Loader\StandardAutoloader;
 
 error_reporting(E_ALL | E_STRICT);
 
-chdir(__DIR__);
-
-$previousDir = '.';
-while (!file_exists('config/application.config.php')) {
-    $dir = dirname(getcwd());
-    if ($previousDir === $dir) {
-        throw new RuntimeException(
-                'Unable to locate "config/application.config.php": ' .
-                'is DOMPDFModule in a subdir of your application skeleton?'
-        );
-    }
-    $previousDir = $dir;
-    chdir($dir);
-}
-
 if (is_readable(__DIR__ . '/TestConfiguration.php')) {
     $configuration = include_once __DIR__ . '/TestConfiguration.php';
 } else {

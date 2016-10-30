@@ -119,14 +119,20 @@ class PdfStrategy implements ListenerAggregateInterface
         $response->getHeaders()->addHeaderLine('content-type', 'application/pdf');
         
         $fileName = $e->getModel()->getOption('filename');
+        $hasAttachment = $e->getModel()->getOption('attachment');
+        
+        $attachment = '';
+        if($hasAttachment){
+        	$attachment = 'attachment; ';
+        }
         if (isset($fileName)) {
             if (substr($fileName, -4) != '.pdf') {
                 $fileName .= '.pdf';
             }
-            
+            $contentDisposition = sprintf('%sfilename=%s', $attachment, $fileName);
             $response->getHeaders()->addHeaderLine(
             	'Content-Disposition', 
-            	'attachment; filename=' . $fileName);
+            	$contentDisposition);
         }
     }
 }

@@ -31,7 +31,8 @@ class PdfModel extends ViewModel
         'paperSize' => '8x11',
         'paperOrientation' => 'portrait',
         'basePath' => '/',
-        'fileName' => null
+        'fileName' => null,
+    	'attachment' => true
     );
     
     /**

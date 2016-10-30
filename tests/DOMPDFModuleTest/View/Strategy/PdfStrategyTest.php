@@ -96,11 +96,11 @@ class PdfStrategyTest extends TestCase
         
         $this->strategy->injectResponse($this->event);
         
-        $headers                  = $this->event->getResponse()->getHeaders();
-        $contentDispositionHeader = $headers->get('Content-Disposition');
+        $headers = $this->event->getResponse()->getHeaders();
+        $contentDisposition = $headers->get('Content-Disposition');
         
-        $this->assertInstanceOf('Zend\Http\Header\ContentDisposition', $contentDispositionHeader);
-        $this->assertEquals($contentDispositionHeader->getFieldValue(), 'attachment; filename=testPdfFileName.pdf');
+        $this->assertInstanceOf('Zend\Http\Header\ContentDisposition', $contentDisposition);
+        $this->assertEquals($contentDisposition->getFieldValue(), 'attachment; filename=testPdfFileName.pdf');
 
         ob_end_flush(); // Clear out any buffers held by renderers.
     }

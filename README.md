@@ -1,7 +1,7 @@
 DOMPDFModule
 ============
 
-[![Build Status](https://secure.travis-ci.org/raykolbe/DOMPDFModule.png?branch=master)](http://travis-ci.org/raykolbe/DOMPDFModule) [![Code Climate](https://codeclimate.com/github/raykolbe/DOMPDFModule/badges/gpa.svg)](https://codeclimate.com/github/raykolbe/DOMPDFModule)
+[![Build Status](https://secure.travis-ci.org/raykolbe/DOMPDFModule.png?branch=master)](http://travis-ci.org/raykolbe/DOMPDFModule) [![Code Climate](https://codeclimate.com/github/raykolbe/DOMPDFModule/badges/gpa.svg)](https://codeclimate.com/github/raykolbe/DOMPDFModule) [![Test Coverage](https://codeclimate.com/github/raykolbe/DOMPDFModule/badges/coverage.svg)](https://codeclimate.com/github/raykolbe/DOMPDFModule/coverage)
 
 The DOMPDF module integrates the DOMPDF library with Zend Framework 2 with minimal
 effort on the consumer's end.

@@ -68,33 +68,30 @@ class DOMPDFFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
+        defined('DOMPDF_DIR') || define("DOMPDF_DIR", __DIR__ . '/../../../../../dompdf/dompdf');
+        defined('DOMPDF_INC_DIR') || define("DOMPDF_INC_DIR", DOMPDF_DIR . "/include");
+        defined('DOMPDF_LIB_DIR') || define("DOMPDF_LIB_DIR", DOMPDF_DIR . "/lib");
+        defined('DOMPDF_AUTOLOAD_PREPEND') || define("DOMPDF_AUTOLOAD_PREPEND", false);
+        defined('DOMPDF_ADMIN_USERNAME') || define("DOMPDF_ADMIN_USERNAME", false);
+        defined('DOMPDF_ADMIN_PASSWORD') || define("DOMPDF_ADMIN_PASSWORD", false);
+
         $config = $serviceLocator->get('config');
-        $config = $config['dompdf_module'];
+        $this->applyCompatGlobals($config['dompdf_module']);
 
-        if (defined('DOMPDF_DIR') === false) {
-            define("DOMPDF_DIR", __DIR__ . '/../../../../../dompdf/dompdf');
-        }
-
-        if (defined('DOMPDF_INC_DIR') === false) {
-            define("DOMPDF_INC_DIR", DOMPDF_DIR . "/include");
-        }
-
-        if (defined('DOMPDF_LIB_DIR') === false) {
-            define("DOMPDF_LIB_DIR", DOMPDF_DIR . "/lib");
-        }
-
-        if (defined('DOMPDF_AUTOLOAD_PREPEND') === false) {
-            define("DOMPDF_AUTOLOAD_PREPEND", false);
-        }
-
-        if (defined('DOMPDF_ADMIN_USERNAME') === false) {
-            define("DOMPDF_ADMIN_USERNAME", false);
-        }
-
-        if (defined('DOMPDF_ADMIN_PASSWORD') === false) {
-            define("DOMPDF_ADMIN_PASSWORD", false);
-        }
+        require_once DOMPDF_LIB_DIR . '/html5lib/Parser.php';
+        require_once DOMPDF_INC_DIR . '/functions.inc.php';
+        require_once __DIR__ . '/../../../config/module.compat.php';
         
+        return new DOMPDF();
+    }
+
+    /**
+     * Declares global constants supported by DOMPDF lib.
+     *
+     * @param array $config
+     */
+    private function applyCompatGlobals(array $config)
+    {
         foreach ($config as $key => $value) {
             if (! array_key_exists($key, static::$configCompatMapping)) {
                 continue;
@@ -103,14 +100,8 @@ class DOMPDFFactory implements FactoryInterface
             if (defined(static::$configCompatMapping[$key])) {
                 continue;
             }
-            
+
             define(static::$configCompatMapping[$key], $value);
         }
-
-        require_once DOMPDF_LIB_DIR . '/html5lib/Parser.php';
-        require_once DOMPDF_INC_DIR . '/functions.inc.php';
-        require_once __DIR__ . '/../../../config/module.compat.php';
-        
-        return new DOMPDF();
     }
 }

@@ -15,7 +15,7 @@ before_script:
   - php composer.phar install
 
 script:
-  - vendor/bin/phpcs --standard=PSR2 src && vendor/bin/phpcs --standard=PSR2 config && vendor/bin/phpcs --standard=PSR2 tests && vendor/bin/phpunit tests -v -c tests/phpunit.xml
+  - vendor/bin/phpcs --standard=PSR2 src && vendor/bin/phpcs --standard=PSR2 config && vendor/bin/phpcs --standard=PSR2 tests && vendor/bin/phpunit tests -v -c tests/phpunit.xml && vendor/bin/phpmd config,src,tests text cleancode,codesize,controversial,design,naming,unusedcode
 
 after_success:
   - vendor/bin/test-reporter

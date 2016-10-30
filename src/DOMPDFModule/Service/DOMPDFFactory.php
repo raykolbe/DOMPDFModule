@@ -64,21 +64,21 @@ class DOMPDFFactory implements FactoryInterface
      * Creates an instance of DOMPDF.
      * 
      * @param  ServiceLocatorInterface $serviceLocator 
-     * @return PdfRenderer
+     * @return DOMPDF
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         $config = $serviceLocator->get('config');
         $config = $config['dompdf_module'];
-        
+
         if (defined('DOMPDF_DIR') === false) {
             define("DOMPDF_DIR", __DIR__ . '/../../../../../dompdf/dompdf');
         }
-        
+
         if (defined('DOMPDF_INC_DIR') === false) {
             define("DOMPDF_INC_DIR", DOMPDF_DIR . "/include");
         }
-        
+
         if (defined('DOMPDF_LIB_DIR') === false) {
             define("DOMPDF_LIB_DIR", DOMPDF_DIR . "/lib");
         }
@@ -94,7 +94,6 @@ class DOMPDFFactory implements FactoryInterface
         if (defined('DOMPDF_ADMIN_PASSWORD') === false) {
             define("DOMPDF_ADMIN_PASSWORD", false);
         }
-
         
         foreach ($config as $key => $value) {
             if (! array_key_exists($key, static::$configCompatMapping)) {

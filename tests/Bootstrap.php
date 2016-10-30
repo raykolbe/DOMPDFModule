@@ -29,7 +29,7 @@ if (is_readable(__DIR__ . '/TestConfiguration.php')) {
 }
 
 // Assumes PHP Composer autoloader w/compiled classmaps, etc.
-require_once 'vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 // This namespace is not in classmap.
 $loader = new StandardAutoloader(

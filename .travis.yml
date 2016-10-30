@@ -4,15 +4,8 @@ php:
   - 5.3.29
 
 before_script:
-  - cd ..
-  - git clone --recursive --branch zf/release-2.1.6 https://github.com/zendframework/ZendSkeletonApplication.git
-  - cd ZendSkeletonApplication
-  - cp ../DOMPDFModule/.travis/composer.json ./
   - curl -s http://getcomposer.org/installer | php
   - php composer.phar install
-  - rm -rf vendor/dino/dompdf-module
-  - cp -r ../DOMPDFModule vendor/dino/dompdf-module
 
 script:
-  - cd vendor/dino/dompdf-module/tests
-  - phpunit
+  - vendor/bin/phpunit tests -v -c tests/phpunit.xml

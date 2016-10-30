@@ -7,17 +7,26 @@
     "license": "MIT",
     "authors": [
         {
-        "name": "Raymond Kolbe",
-        "email": "raymond.kolbe@maine.edu"
+        "name": "Raymond J. Kolbe",
+        "email": "rkolbe@gmail.com"
         }
     ],
     "require": {
-        "php": ">=5.3.3",
-        "dompdf/dompdf": "0.6.*"
+        "php": ">=5.3.29",
+        "zendframework/zendframework": "^2.1.6",
+        "dompdf/dompdf": "^0.6.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^4.8.27"
     },
     "autoload": {
         "psr-0": {
             "DOMPDFModule": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-0": {
+            "DOMPDFModuleTest": "tests/"
         }
     }
 }

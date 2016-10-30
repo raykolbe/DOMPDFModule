@@ -29,11 +29,11 @@ class TestCase extends \PHPUnit_Framework_TestCase
     protected static $serviceManager;
 
     /**
-     * @param ServiceManager $sm
+     * @param ServiceManager $serviceManager
      */
-    public static function setServiceManager(ServiceManager $sm)
+    public static function setServiceManager(ServiceManager $serviceManager)
     {
-        self::$serviceManager = $sm;
+        self::$serviceManager = $serviceManager;
     }
 
     /**

@@ -13,5 +13,5 @@ before_script:
 script:
   - vendor/bin/phpcs --standard=PSR2 src && vendor/bin/phpcs --standard=PSR2 config && vendor/bin/phpcs --standard=PSR2 tests && vendor/bin/phpunit tests -v -c tests/phpunit.xml
 
-after_script:
+after_success:
   - vendor/bin/test-reporter

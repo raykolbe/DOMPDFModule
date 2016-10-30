@@ -30,23 +30,30 @@ use DOMPDFModule\View\Strategy\PdfStrategy;
 
 class PdfStrategyTest extends TestCase
 {
-    public function setUp()
-    {
-        $this->renderer = new PdfRenderer();
-        $this->strategy = new PdfStrategy($this->renderer);
-        $this->event    = new ViewEvent();
-        $this->response = new HttpResponse();
-        
-        $this->resolver = new TemplatePathStack();
-        $this->resolver->addPath(dirname(__DIR__) . '/_templates');
-        
-        $this->renderer->setResolver($this->resolver);
-        
-        $htmlRenderer = new PhpRenderer();
-        $htmlRenderer->setResolver($this->resolver);
-        $this->renderer->setHtmlRenderer($htmlRenderer);
-        $this->renderer->setEngine($this->getServiceManager()->get('dompdf'));
-    }
+    /**
+     * @var ViewEvent
+     */
+    private $event;
+
+    /**
+     * @var PdfRenderer
+     */
+    private $renderer;
+
+    /**
+     * @var TemplatePathStack
+     */
+    private $resolver;
+
+    /**
+     * @var PdfStrategy
+     */
+    private $strategy;
+
+    /**
+     * @var HttpResponse
+     */
+    private $response;
 
     public function testPdfModelSelectsPdfStrategy()
     {
@@ -70,8 +77,10 @@ class PdfStrategyTest extends TestCase
         $headers           = $this->event->getResponse()->getHeaders();
         $contentTypeHeader = $headers->get('content-type');
         
-        $this->assertInstanceof('Zend\Http\Header\ContentType', $contentTypeHeader);
+        $this->assertInstanceOf('Zend\Http\Header\ContentType', $contentTypeHeader);
         $this->assertEquals($contentTypeHeader->getFieldValue(), 'application/pdf');
+
+        ob_end_flush(); // Clear out any buffers held by renderers.
     }
     
     public function testResponseHeadersWithFileName()
@@ -90,7 +99,32 @@ class PdfStrategyTest extends TestCase
         $headers                  = $this->event->getResponse()->getHeaders();
         $contentDispositionHeader = $headers->get('Content-Disposition');
         
-        $this->assertInstanceof('Zend\Http\Header\ContentDisposition', $contentDispositionHeader);
+        $this->assertInstanceOf('Zend\Http\Header\ContentDisposition', $contentDispositionHeader);
         $this->assertEquals($contentDispositionHeader->getFieldValue(), 'attachment; filename=testPdfFileName.pdf');
+
+        ob_end_flush(); // Clear out any buffers held by renderers.
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function setUp()
+    {
+        parent::setUp();
+
+        $this->renderer = new PdfRenderer();
+        $this->strategy = new PdfStrategy($this->renderer);
+        $this->event    = new ViewEvent();
+        $this->response = new HttpResponse();
+
+        $this->resolver = new TemplatePathStack();
+        $this->resolver->addPath(dirname(__DIR__) . '/_templates');
+
+        $this->renderer->setResolver($this->resolver);
+
+        $htmlRenderer = new PhpRenderer();
+        $htmlRenderer->setResolver($this->resolver);
+        $this->renderer->setHtmlRenderer($htmlRenderer);
+        $this->renderer->setEngine($this->getServiceManager()->get('dompdf'));
     }
 }

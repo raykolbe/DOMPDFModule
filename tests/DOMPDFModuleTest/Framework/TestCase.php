@@ -19,18 +19,26 @@
 
 namespace DOMPDFModuleTest\Framework;
 
-use PHPUnit_Framework_TestCase;
 use Zend\ServiceManager\ServiceManager;
 
-class TestCase extends PHPUnit_Framework_TestCase
+class TestCase extends \PHPUnit_Framework_TestCase
 {
-    protected static $serviceManager = null;
-    
+    /**
+     * @var ServiceManager
+     */
+    protected static $serviceManager;
+
+    /**
+     * @param ServiceManager $sm
+     */
     public static function setServiceManager(ServiceManager $sm)
     {
         self::$serviceManager = $sm;
     }
-    
+
+    /**
+     * @return ServiceManager
+     */
     public function getServiceManager()
     {
     	return self::$serviceManager;

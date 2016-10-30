@@ -1,13 +1,18 @@
 <phpunit
-    bootstrap="./Bootstrap.php"
-    colors="true"
-    backupGlobals="false"
+        bootstrap="./Bootstrap.php"
+        colors="true"
+        backupGlobals="false"
 >
     <testsuites>
         <testsuite name="DOMPDFModule Test Suite">
             <directory>./</directory>
         </testsuite>
     </testsuites>
+    <filter>
+        <whitelist>
+            <directory suffix=".php">../src</directory>
+        </whitelist>
+    </filter>
     <logging>
         <log type="coverage-clover" target="../build/logs/clover.xml"/>
     </logging>

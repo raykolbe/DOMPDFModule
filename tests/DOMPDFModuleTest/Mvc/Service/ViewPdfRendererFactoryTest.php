@@ -17,29 +17,20 @@
  * @license	http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-namespace DOMPDFModule\Mvc\Service;
+namespace DOMPDFModuleTest\Mvc\Service;
 
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
-use DOMPDFModule\View\Renderer\PdfRenderer;
+use DOMPDFModule\Mvc\Service\ViewPdfRendererFactory;
+use DOMPDFModuleTest\Framework\TestCase;
 
-class ViewPdfRendererFactory implements FactoryInterface
+class ViewPdfRendererFactoryTest extends TestCase
 {
-    /**
-     * Create and return the PDF view renderer
-     *
-     * @param  ServiceLocatorInterface $serviceLocator
-     * @return PdfRenderer
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    public function testCreatesService()
     {
-        $viewManager = $serviceLocator->get('ViewManager');
+        $factory = new ViewPdfRendererFactory();
 
-        $pdfRenderer = new PdfRenderer();
-        $pdfRenderer->setResolver($viewManager->getResolver());
-        $pdfRenderer->setHtmlRenderer($viewManager->getRenderer());
-        $pdfRenderer->setEngine($serviceLocator->get('dompdf'));
-        
-        return $pdfRenderer;
+        /* @var $renderer \DOMPDFModule\View\Renderer\PdfRenderer */
+        $instance = $factory->createService($this->getServiceManager());
+
+        $this->assertInstanceOf('\DOMPDFModule\View\Renderer\PdfRenderer', $instance);
     }
 }

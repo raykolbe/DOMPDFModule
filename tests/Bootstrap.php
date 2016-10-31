@@ -32,11 +32,6 @@ if (is_readable(__DIR__ . '/TestConfiguration.php')) {
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-$serviceManager = new ServiceManager(new ServiceManagerConfig($configuration['service_manager']));
-$serviceManager->setService('ApplicationConfig', $configuration);
-$serviceManager->setAllowOverride(true);
-
-$moduleManager = $serviceManager->get('ModuleManager');
-$moduleManager->loadModules();
-
+$application = \Zend\Mvc\Application::init($configuration);
+$serviceManager = $application->getServiceManager();
 TestCase::setServiceManager($serviceManager);

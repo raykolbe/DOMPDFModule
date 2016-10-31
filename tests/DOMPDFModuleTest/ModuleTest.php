@@ -17,29 +17,39 @@
  * @license	http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-namespace DOMPDFModule\Mvc\Service;
+namespace DOMPDFModuleTest;
 
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
-use DOMPDFModule\View\Renderer\PdfRenderer;
+use DOMPDFModule\Module;
 
-class ViewPdfRendererFactory implements FactoryInterface
+class ModuleTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Create and return the PDF view renderer
-     *
-     * @param  ServiceLocatorInterface $serviceLocator
-     * @return PdfRenderer
+     * @var Module
      */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        $viewManager = $serviceLocator->get('ViewManager');
+    private $module;
 
-        $pdfRenderer = new PdfRenderer();
-        $pdfRenderer->setResolver($viewManager->getResolver());
-        $pdfRenderer->setHtmlRenderer($viewManager->getRenderer());
-        $pdfRenderer->setEngine($serviceLocator->get('dompdf'));
-        
-        return $pdfRenderer;
+    public function testHasConfig()
+    {
+        $config = $this->module->getConfig();
+
+        // Test the obvious required keys.
+        $this->assertArrayHasKey('dompdf_module', $config, 'dompdf_module');
+        $this->assertArrayHasKey('service_manager', $config, 'service_manager');
+    }
+
+    public function testHasAutoloaderConfig()
+    {
+        $config = $this->module->getAutoloaderConfig();
+        $this->assertInternalType('array', $config, 'config is array');
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function setUp()
+    {
+        parent::setUp();
+
+        $this->module = new Module();
     }
 }

@@ -19,6 +19,8 @@
 
 namespace DOMPDFModuleTest\View\Strategy;
 
+use Zend\EventManager\EventManager;
+use Zend\View\Model\ViewModel;
 use Zend\View\Resolver\TemplatePathStack;
 use Zend\View\Renderer\PhpRenderer;
 use Zend\View\ViewEvent;
@@ -46,20 +48,64 @@ class PdfStrategyTest extends TestCase
     private $resolver;
 
     /**
-     * @var PdfStrategy
-     */
-    private $strategy;
-
-    /**
      * @var HttpResponse
      */
     private $response;
 
-    public function testPdfModelSelectsPdfStrategy()
+    /**
+     * System under test.
+     *
+     * @var PdfStrategy
+     */
+    private $strategy;
+
+    public function testEventSubscribers()
+    {
+        $manager = new EventManager();
+
+        $this->assertCount(0, $manager->getListeners(ViewEvent::EVENT_RENDERER), 'Renderer listener before attach');
+        $this->assertCount(0, $manager->getListeners(ViewEvent::EVENT_RESPONSE), 'Response listener before attach');
+
+        $this->strategy->attach($manager);
+
+        $this->assertCount(1, $manager->getListeners(ViewEvent::EVENT_RENDERER), 'Renderer listener after attach');
+        $this->assertCount(1, $manager->getListeners(ViewEvent::EVENT_RESPONSE), 'Response listener after attach');
+
+        $this->strategy->detach($manager);
+
+        $this->assertCount(0, $manager->getListeners(ViewEvent::EVENT_RENDERER), 'Renderer listener after detach');
+        $this->assertCount(0, $manager->getListeners(ViewEvent::EVENT_RESPONSE), 'Response listener after detach');
+    }
+
+    public function testSelectsRendererWhenProvidedPdfModel()
     {
         $this->event->setModel(new PdfModel());
         $result = $this->strategy->selectRenderer($this->event);
         $this->assertSame($this->renderer, $result);
+    }
+
+    public function testDoesNotSelectRendererWhenNotProvidedPdfModel()
+    {
+        $this->event->setModel(new ViewModel());
+        $result = $this->strategy->selectRenderer($this->event);
+        $this->assertNull($result);
+    }
+
+    public function testDoesNotRenderPdfWhenRenderMismatch()
+    {
+        $this->event->setRenderer(new PhpRenderer());
+        $result = $this->strategy->injectResponse($this->event);
+        $this->assertNull($result);
+    }
+
+    public function testDoesNotRenderPdfWhenResultIsNotString()
+    {
+        $this->event->setRenderer($this->renderer);
+        $this->event->setResult(new \stdClass());
+
+        $result = $this->strategy->injectResponse($this->event);
+
+        $this->assertNull($result);
     }
     
     public function testContentTypeResponseHeader()

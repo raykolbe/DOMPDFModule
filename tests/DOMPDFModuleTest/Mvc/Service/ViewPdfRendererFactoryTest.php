@@ -28,7 +28,7 @@ class ViewPdfRendererFactoryTest extends TestCase
     {
         $factory = new ViewPdfRendererFactory();
 
-        /* @var $renderer \DOMPDFModule\View\Renderer\PdfRenderer */
+        /* @var $instance \DOMPDFModule\View\Renderer\PdfRenderer */
         $instance = $factory->createService($this->getServiceManager());
 
         $this->assertInstanceOf('\DOMPDFModule\View\Renderer\PdfRenderer', $instance);

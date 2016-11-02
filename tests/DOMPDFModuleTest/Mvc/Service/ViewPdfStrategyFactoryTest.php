@@ -28,7 +28,7 @@ class ViewPdfStrategyFactoryTest extends TestCase
     {
         $factory = new ViewPdfStrategyFactory();
 
-        /* @var $renderer \DOMPDFModule\View\Strategy\PdfStrategy */
+        /* @var $instance \DOMPDFModule\View\Strategy\PdfStrategy */
         $instance = $factory->createService($this->getServiceManager());
 
         $this->assertInstanceOf('\DOMPDFModule\View\Strategy\PdfStrategy', $instance);

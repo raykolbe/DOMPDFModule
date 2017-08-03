@@ -25,8 +25,8 @@ class PdfStrategyTest extends TestCase
 {
     public function testUniqueInstancesFromFactory()
     {
-        $dompdfInstance1 = $this->getServiceManager()->get('dompdf');
-        $dompdfInstance2 = $this->getServiceManager()->get('dompdf');
+        $dompdfInstance1 = $this->getServiceManager()->get('DOMPDF');
+        $dompdfInstance2 = $this->getServiceManager()->get('DOMPDF');
         
         $this->assertNotSame($dompdfInstance1, $dompdfInstance2);
     }

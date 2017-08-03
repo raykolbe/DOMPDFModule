@@ -3,11 +3,11 @@ DOMPDFModule
 
 [![Build Status](https://secure.travis-ci.org/raykolbe/DOMPDFModule.png?branch=master)](http://travis-ci.org/raykolbe/DOMPDFModule) [![Code Climate](https://codeclimate.com/github/raykolbe/DOMPDFModule/badges/gpa.svg)](https://codeclimate.com/github/raykolbe/DOMPDFModule) [![Test Coverage](https://codeclimate.com/github/raykolbe/DOMPDFModule/badges/coverage.svg)](https://codeclimate.com/github/raykolbe/DOMPDFModule/coverage) [![Total Downloads](https://poser.pugx.org/dino/dompdf-module/downloads)](https://packagist.org/packages/dino/dompdf-module) [![License](https://poser.pugx.org/dino/dompdf-module/license)](https://packagist.org/packages/dino/dompdf-module)
 
-The DOMPDF module integrates the DOMPDF library with Zend Framework 2 with minimal
+The DOMPDF module integrates the DOMPDF library with Zend Framework with minimal
 effort on the consumer's end.
 
 ## Requirements
-  - [Zend Framework 2](http://www.github.com/zendframework/zf2)
+  - [Zend Framework ](http://www.github.com/zendframework/)
 
 ## Installation
 Installation of DOMPDFModule uses PHP Composer. For more information about

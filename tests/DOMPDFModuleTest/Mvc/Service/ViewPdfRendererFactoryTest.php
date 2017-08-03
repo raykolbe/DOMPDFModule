@@ -19,8 +19,8 @@
 
 namespace DOMPDFModuleTest\Mvc\Service;
 
-use DOMPDFModule\Mvc\Service\ViewPdfRendererFactory;
 use DOMPDFModuleTest\Framework\TestCase;
+use DOMPDFModule\Mvc\Service\ViewPdfRendererFactory;
 
 class ViewPdfRendererFactoryTest extends TestCase
 {
@@ -29,7 +29,7 @@ class ViewPdfRendererFactoryTest extends TestCase
         $factory = new ViewPdfRendererFactory();
 
         /* @var $instance \DOMPDFModule\View\Renderer\PdfRenderer */
-        $instance = $factory->createService($this->getServiceManager());
+        $instance = $factory($this->getServiceManager(), '');
 
         $this->assertInstanceOf('\DOMPDFModule\View\Renderer\PdfRenderer', $instance);
     }

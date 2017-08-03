@@ -17,20 +17,23 @@
  * @license	http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-namespace DOMPDFModuleTest\Mvc\Service;
+namespace DOMPDFModule\Service;
 
-use DOMPDFModuleTest\Framework\TestCase;
-use DOMPDFModule\Mvc\Service\ViewPdfStrategyFactory;
+use Dompdf\Dompdf;
+use Dompdf\Options;
+use Interop\Container\ContainerInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 
-class ViewPdfStrategyFactoryTest extends TestCase
+class DOMPDFFactory implements FactoryInterface
 {
-    public function testCreatesService()
+    /**
+     * {@inheritdoc}
+     */
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        $factory = new ViewPdfStrategyFactory();
+        $config = $container->get('config');
 
-        /* @var $instance \DOMPDFModule\View\Strategy\PdfStrategy */
-        $instance = $factory($this->getServiceManager(), '');
-
-        $this->assertInstanceOf('\DOMPDFModule\View\Strategy\PdfStrategy', $instance);
+        $options = new Options($config);
+        return new Dompdf($options);
     }
 }

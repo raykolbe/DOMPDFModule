@@ -19,19 +19,14 @@
 
 namespace DOMPDFModule\View\Strategy;
 
+use Zend\View\ViewEvent;
 use DOMPDFModule\View\Model;
 use DOMPDFModule\View\Renderer\PdfRenderer;
 use Zend\EventManager\EventManagerInterface;
-use Zend\EventManager\ListenerAggregateInterface;
-use Zend\View\ViewEvent;
+use Zend\EventManager\AbstractListenerAggregate;
 
-class PdfStrategy implements ListenerAggregateInterface
+class PdfStrategy extends AbstractListenerAggregate
 {
-    /**
-     * @var \Zend\Stdlib\CallbackHandler[]
-     */
-    protected $listeners = array();
-
     /**
      * @var PdfRenderer
      */
@@ -41,7 +36,6 @@ class PdfStrategy implements ListenerAggregateInterface
      * Constructor
      *
      * @param  PdfRenderer $renderer
-     * @return void
      */
     public function __construct(PdfRenderer $renderer)
     {
@@ -49,31 +43,12 @@ class PdfStrategy implements ListenerAggregateInterface
     }
 
     /**
-     * Attach the aggregate to the specified event manager
-     *
-     * @param  EventManagerInterface $events
-     * @param  int $priority
-     * @return void
+     * {@inheritdoc}
      */
     public function attach(EventManagerInterface $events, $priority = 1)
     {
         $this->listeners[] = $events->attach(ViewEvent::EVENT_RENDERER, array($this, 'selectRenderer'), $priority);
         $this->listeners[] = $events->attach(ViewEvent::EVENT_RESPONSE, array($this, 'injectResponse'), $priority);
-    }
-
-    /**
-     * Detach aggregate listeners from the specified event manager
-     *
-     * @param  EventManagerInterface $events
-     * @return void
-     */
-    public function detach(EventManagerInterface $events)
-    {
-        foreach ($this->listeners as $index => $listener) {
-            if ($events->detach($listener)) {
-                unset($this->listeners[$index]);
-            }
-        }
     }
 
     /**
@@ -96,8 +71,9 @@ class PdfStrategy implements ListenerAggregateInterface
     /**
      * Inject the response with the PDF payload and appropriate Content-Type header
      *
-     * @param  ViewEvent $e
+     * @param ViewEvent $event
      * @return void
+     * @internal param ViewEvent $e
      */
     public function injectResponse(ViewEvent $event)
     {

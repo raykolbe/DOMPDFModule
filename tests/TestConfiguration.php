@@ -17,26 +17,19 @@
  * @license	http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-namespace DOMPDFModule;
-
-class Module
-{
-    /**
-     * @return array
-     */
-    public function getConfig()
-    {
-        return include __DIR__ . '/../../config/module.config.php';
-    }
-    
-    public function getAutoloaderConfig()
-    {
-        return array(
-            'Zend\Loader\StandardAutoloader' => array(
-                'namespaces' => array(
-                    __NAMESPACE__ => __DIR__ ,
-                ),
-            ),
-        );
-    }
-}
+return array(
+    'modules' => array(
+        'DOMPDFModule',
+    ),
+    'module_listener_options' => array(
+        'config_cache_enabled' => false,
+        'cache_dir'            => 'data/cache',
+        'module_paths' => array(
+            './vendor',
+            './module'
+        ),
+    ),
+    'service_manager' => array(
+        'use_defaults' => true,
+    ),
+);

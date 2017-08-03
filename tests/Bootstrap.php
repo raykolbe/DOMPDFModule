@@ -18,8 +18,8 @@
  */
 
 use DOMPDFModuleTest\Framework\TestCase;
-use Zend\ServiceManager\ServiceManager;
 use Zend\Mvc\Service\ServiceManagerConfig;
+use Zend\ServiceManager\ServiceManager;
 
 ini_set('display_errors', 'On');
 error_reporting(E_ALL | E_STRICT);
@@ -30,8 +30,22 @@ if (is_readable(__DIR__ . '/TestConfiguration.php')) {
     $configuration = include_once __DIR__ . '/TestConfiguration.php.dist';
 }
 
-require_once __DIR__ . '/../vendor/autoload.php';
+include __DIR__ . '/../vendor/autoload.php';
 
-$application = \Zend\Mvc\Application::init($configuration);
-$serviceManager = $application->getServiceManager();
+// Prepare the service manager
+$smConfig = $configuration['service_manager'] ?? [];
+
+$smConfig['dompdf_module']['font_directory'] = 123456;
+
+$smConfig = new ServiceManagerConfig($smConfig);
+$serviceManager = new ServiceManager();
+$smConfig->configureServiceManager($serviceManager);
+$serviceManager->setService('ApplicationConfig', $configuration);
+
+// Load modules
+$serviceManager->get('ModuleManager')->loadModules();
+
+
+//$application = Application::init($configuration);
+//$serviceManager = $application->getServiceManager();
 TestCase::setServiceManager($serviceManager);

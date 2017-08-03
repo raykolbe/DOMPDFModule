@@ -20,8 +20,9 @@
 namespace DOMPDFModuleTest;
 
 use DOMPDFModule\Module;
+use PHPUnit\Framework\TestCase as PHPUnit_Framework_TestCase;
 
-class ModuleTest extends \PHPUnit_Framework_TestCase
+class ModuleTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @var Module
@@ -35,12 +36,6 @@ class ModuleTest extends \PHPUnit_Framework_TestCase
         // Test the obvious required keys.
         $this->assertArrayHasKey('dompdf_module', $config, 'dompdf_module');
         $this->assertArrayHasKey('service_manager', $config, 'service_manager');
-    }
-
-    public function testHasAutoloaderConfig()
-    {
-        $config = $this->module->getAutoloaderConfig();
-        $this->assertInternalType('array', $config, 'config is array');
     }
 
     /**

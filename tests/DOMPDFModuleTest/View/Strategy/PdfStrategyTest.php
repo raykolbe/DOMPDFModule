@@ -19,19 +19,22 @@
 
 namespace DOMPDFModuleTest\View\Strategy;
 
-use Zend\EventManager\EventManager;
-use Zend\View\Model\ViewModel;
-use Zend\View\Resolver\TemplatePathStack;
-use Zend\View\Renderer\PhpRenderer;
 use Zend\View\ViewEvent;
+use Zend\View\Model\ViewModel;
+use Zend\EventManager\EventManager;
+use Zend\View\Renderer\PhpRenderer;
+use DOMPDFModule\View\Model\PdfModel;
 use Zend\Http\Response as HttpResponse;
 use DOMPDFModuleTest\Framework\TestCase;
-use DOMPDFModule\View\Model\PdfModel;
+use Zend\View\Resolver\TemplatePathStack;
 use DOMPDFModule\View\Renderer\PdfRenderer;
 use DOMPDFModule\View\Strategy\PdfStrategy;
+use Zend\EventManager\Test\EventListenerIntrospectionTrait;
 
 class PdfStrategyTest extends TestCase
 {
+    use EventListenerIntrospectionTrait;
+
     /**
      * @var ViewEvent
      */
@@ -61,20 +64,20 @@ class PdfStrategyTest extends TestCase
 
     public function testEventSubscribers()
     {
+        //As suggested in the documentation, we no longer have the need to verify whether or not the event is attached
+        //http://zendframework.github.io/zend-eventmanager/migration/removed/#eventmanagerinterfacegetevents-and-getlisteners
+
         $manager = new EventManager();
-
-        $this->assertCount(0, $manager->getListeners(ViewEvent::EVENT_RENDERER), 'Renderer listener before attach');
-        $this->assertCount(0, $manager->getListeners(ViewEvent::EVENT_RESPONSE), 'Response listener before attach');
-
         $this->strategy->attach($manager);
 
-        $this->assertCount(1, $manager->getListeners(ViewEvent::EVENT_RENDERER), 'Renderer listener after attach');
-        $this->assertCount(1, $manager->getListeners(ViewEvent::EVENT_RESPONSE), 'Response listener after attach');
+        $events = $this->getEventsFromEventManager($manager);
+
+        $this->assertCount(2, $events, 'Renderer listener after attach');
+        $this->assertEquals([ViewEvent::EVENT_RENDERER, ViewEvent::EVENT_RESPONSE], $events);
 
         $this->strategy->detach($manager);
 
-        $this->assertCount(0, $manager->getListeners(ViewEvent::EVENT_RENDERER), 'Renderer listener after detach');
-        $this->assertCount(0, $manager->getListeners(ViewEvent::EVENT_RESPONSE), 'Response listener after detach');
+        $this->assertCount(0, $this->getEventsFromEventManager($manager), 'Renderer listener after detach');
     }
 
     public function testSelectsRendererWhenProvidedPdfModel()
@@ -125,8 +128,6 @@ class PdfStrategyTest extends TestCase
         
         $this->assertInstanceOf('Zend\Http\Header\ContentType', $contentTypeHeader);
         $this->assertEquals($contentTypeHeader->getFieldValue(), 'application/pdf');
-
-        ob_end_flush(); // Clear out any buffers held by renderers.
     }
     
     public function testResponseHeadersWithFileName()
@@ -147,8 +148,6 @@ class PdfStrategyTest extends TestCase
         
         $this->assertInstanceOf('Zend\Http\Header\ContentDisposition', $contentDisposition);
         $this->assertEquals($contentDisposition->getFieldValue(), 'attachment; filename=testPdfFileName.pdf');
-
-        ob_end_flush(); // Clear out any buffers held by renderers.
     }
 
     /**
@@ -171,6 +170,6 @@ class PdfStrategyTest extends TestCase
         $htmlRenderer = new PhpRenderer();
         $htmlRenderer->setResolver($this->resolver);
         $this->renderer->setHtmlRenderer($htmlRenderer);
-        $this->renderer->setEngine($this->getServiceManager()->get('dompdf'));
+        $this->renderer->setEngine($this->getServiceManager()->get('DOMPDF'));
     }
 }

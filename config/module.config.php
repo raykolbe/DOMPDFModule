@@ -19,6 +19,10 @@
 
 namespace DOMPDFModule;
 
+use DOMPDFModule\Service\DOMPDFFactory;
+use DOMPDFModule\Mvc\Service\ViewPdfRendererFactory;
+use DOMPDFModule\Mvc\Service\ViewPdfStrategyFactory;
+
 return array(
     'dompdf_module' => array(
         /**
@@ -48,7 +52,7 @@ return array(
          *
          * *Please note the trailing slash.*
          */
-        'font_directory' => __DIR__ . '/../../../dompdf/dompdf/lib/fonts/',
+        'font_directory' => __DIR__ . '/../../../dompdf/dompdf/lib/fonts/2',
 
         /**
          * The location of the DOMPDF font cache directory
@@ -296,9 +300,9 @@ return array(
             'DOMPDF' => false
         ),
         'factories' => array(
-            'DOMPDF'          => __NAMESPACE__ . '\Service\DOMPDFFactory',
-            'ViewPdfRenderer' => __NAMESPACE__ . '\Mvc\Service\ViewPdfRendererFactory',
-            'ViewPdfStrategy' => __NAMESPACE__ . '\Mvc\Service\ViewPdfStrategyFactory',
+            'DOMPDF'          => DOMPDFFactory::class,
+            'ViewPdfRenderer' => ViewPdfRendererFactory::class,
+            'ViewPdfStrategy' => ViewPdfStrategyFactory::class,
         )
     ),
 );

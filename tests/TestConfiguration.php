@@ -17,4 +17,19 @@
  * @license	http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-require_once __DIR__ . '/src/DOMPDFModule/Module.php';
+return array(
+    'modules' => array(
+        'DOMPDFModule',
+    ),
+    'module_listener_options' => array(
+        'config_cache_enabled' => false,
+        'cache_dir'            => 'data/cache',
+        'module_paths' => array(
+            './vendor',
+            './module'
+        ),
+    ),
+    'service_manager' => array(
+        'use_defaults' => true,
+    ),
+);

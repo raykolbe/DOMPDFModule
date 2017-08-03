@@ -21,7 +21,7 @@ namespace DOMPDFModule\View\Renderer;
 
 use Zend\View\Renderer\RendererInterface as Renderer;
 use Zend\View\Resolver\ResolverInterface as Resolver;
-use DOMPDF;
+use Dompdf\Dompdf;
 
 class PdfRenderer implements Renderer
 {
@@ -40,7 +40,7 @@ class PdfRenderer implements Renderer
         return $this->htmlRenderer;
     }
     
-    public function setEngine(DOMPDF $dompdf)
+    public function setEngine(Dompdf $dompdf)
     {
         $this->dompdf = $dompdf;
         return $this;

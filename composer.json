@@ -14,7 +14,7 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "php": ">=5.3.29",
+        "php": "^7.0",
         "dompdf/dompdf": "^0.8.0",
         "zendframework/zend-loader": "^2.5",
         "zendframework/zend-modulemanager": "^2.8",

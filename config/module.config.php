@@ -52,7 +52,7 @@ return array(
          *
          * *Please note the trailing slash.*
          */
-        'font_directory' => __DIR__ . '/../../../dompdf/dompdf/lib/fonts/2',
+        'font_directory' => __DIR__ . '/../../../dompdf/dompdf/lib/fonts/',
 
         /**
          * The location of the DOMPDF font cache directory

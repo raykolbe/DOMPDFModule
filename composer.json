@@ -16,7 +16,7 @@
         "zendframework/zend-loader": "^2.1.6",
         "zendframework/zend-servicemanager": "^2.1.6",
         "zendframework/zend-modulemanager": "^2.1.6",
-        "zendframework/zend-mvc": "^2.1.6 <2.7",
+        "zendframework/zend-mvc": "^2.1.6",
         "zendframework/zend-view": "^2.1.6",
         "zendframework/zend-serializer": "^2.1.6",
         "zendframework/zend-log": "^2.1.6",

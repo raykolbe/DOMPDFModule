@@ -1,5 +1,9 @@
 language: php
 
+env:
+  - USE_LATEST_DEPS=false
+  - USE_LATEST_DEPS=true
+
 matrix:
   fast_finish: true
 
@@ -10,9 +14,14 @@ php:
   - 5.6
   - 7.0
 
-before_script:
+before_install:
   - curl -s http://getcomposer.org/installer | php
-  - php composer.phar install
+
+install:
+  - php composer.phar install --prefer-dist
+
+before_script:
+  - if $USE_LATEST_DEPS; then php composer.php update; fi;
 
 script:
   - vendor/bin/phpcs --standard=PSR2 src && vendor/bin/phpcs --standard=PSR2 config && vendor/bin/phpcs --standard=PSR2 tests && vendor/bin/phpunit tests -v -c tests/phpunit.xml && vendor/bin/phpmd config,src,tests text cleancode,codesize,controversial,design,naming,unusedcode

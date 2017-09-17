@@ -9,9 +9,12 @@ matrix:
   include:
     - php: 5.3
       dist: precise
+      env: USE_LATEST_DEPS=false
+    - php: 5.3
+      dist: precise
+      env: USE_LATEST_DEPS=true
 
 php:
-  - 5.3
   - 5.4
   - 5.5
   - 5.6

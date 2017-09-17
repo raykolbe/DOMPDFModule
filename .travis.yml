@@ -6,6 +6,9 @@ env:
 
 matrix:
   fast_finish: true
+  include:
+    - php: 5.3
+      dist: precise
 
 php:
   - 5.3

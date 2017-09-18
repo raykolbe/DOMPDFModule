@@ -1,18 +1,22 @@
 language: php
 
 env:
-  - USE_LATEST_DEPS=false
-  - USE_LATEST_DEPS=true
+  - ZF_VERSION=2.4.*
+  - ZF_VERSION=2.5.*
+  - ZF_VERSION=^2.4.13
 
 matrix:
   fast_finish: true
   include:
     - php: 5.3
       dist: precise
-      env: USE_LATEST_DEPS=false
+      env: ZF_VERSION=2.4.*
     - php: 5.3
       dist: precise
-      env: USE_LATEST_DEPS=true
+      env: ZF_VERSION=2.5.*
+    - php: 5.3
+      dist: precise
+      env: ZF_VERSION=^2.4.13
 
 php:
   - 5.4
@@ -24,7 +28,7 @@ install:
   - composer install --prefer-dist
 
 before_script:
-  - if $USE_LATEST_DEPS; then composer update; fi;
+  - composer require zendframework/zend-loader:${ZF_VERSION} zendframework/zend-servicemanager:${ZF_VERSION} zendframework/zend-modulemanager:${ZF_VERSION} zendframework/zend-mvc:${ZF_VERSION} zendframework/zend-view:${ZF_VERSION} zendframework/zend-serializer:${ZF_VERSION} zendframework/zend-log:${ZF_VERSION} zendframework/zend-i18n:${ZF_VERSION} zendframework/zend-http:${ZF_VERSION} zendframework/zend-console:${ZF_VERSION}
 
 script:
   - vendor/bin/phpcs --standard=PSR2 src && vendor/bin/phpcs --standard=PSR2 config && vendor/bin/phpcs --standard=PSR2 tests && vendor/bin/phpunit tests -v -c tests/phpunit.xml && vendor/bin/phpmd config,src,tests text cleancode,codesize,controversial,design,naming,unusedcode

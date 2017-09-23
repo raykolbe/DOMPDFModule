@@ -59,24 +59,6 @@ class PdfStrategyTest extends TestCase
      */
     private $strategy;
 
-    public function testEventSubscribers()
-    {
-        $manager = new EventManager();
-
-        $this->assertCount(0, $manager->getListeners(ViewEvent::EVENT_RENDERER), 'Renderer listener before attach');
-        $this->assertCount(0, $manager->getListeners(ViewEvent::EVENT_RESPONSE), 'Response listener before attach');
-
-        $this->strategy->attach($manager);
-
-        $this->assertCount(1, $manager->getListeners(ViewEvent::EVENT_RENDERER), 'Renderer listener after attach');
-        $this->assertCount(1, $manager->getListeners(ViewEvent::EVENT_RESPONSE), 'Response listener after attach');
-
-        $this->strategy->detach($manager);
-
-        $this->assertCount(0, $manager->getListeners(ViewEvent::EVENT_RENDERER), 'Renderer listener after detach');
-        $this->assertCount(0, $manager->getListeners(ViewEvent::EVENT_RESPONSE), 'Response listener after detach');
-    }
-
     public function testSelectsRendererWhenProvidedPdfModel()
     {
         $this->event->setModel(new PdfModel());

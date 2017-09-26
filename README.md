@@ -3,8 +3,7 @@ DOMPDFModule
 
 [![Build Status](https://secure.travis-ci.org/raykolbe/DOMPDFModule.png?branch=master)](http://travis-ci.org/raykolbe/DOMPDFModule) [![Code Climate](https://codeclimate.com/github/raykolbe/DOMPDFModule/badges/gpa.svg)](https://codeclimate.com/github/raykolbe/DOMPDFModule) [![Test Coverage](https://codeclimate.com/github/raykolbe/DOMPDFModule/badges/coverage.svg)](https://codeclimate.com/github/raykolbe/DOMPDFModule/coverage) [![Total Downloads](https://poser.pugx.org/dino/dompdf-module/downloads)](https://packagist.org/packages/dino/dompdf-module) [![License](https://poser.pugx.org/dino/dompdf-module/license)](https://packagist.org/packages/dino/dompdf-module)
 
-The DOMPDF module integrates the DOMPDF library with Zend Framework 2 with minimal
-effort on the consumer's end.
+The DOMPDF module integrates the DOMPDF library with Zend Framework 2 with minimal effort on the consumer's end.
 
 ## Requirements
   - [Zend Framework 2](http://www.github.com/zendframework/zf2)
@@ -64,6 +63,22 @@ class ReportController extends AbstractActionController
     }
 }
 ```
+## Development
+So you want to contribute? Fantastic! Don't worry, it's easy. Local builds, tests, and code quality checks can be executed via Docker. This ensures that each build is consistent when run from different machines.
+
+Just install Docker and run these commands from the CLI:
+
+    docker build -t dino/dompdf-module .
+    docker volume create --name composer-cache
+    docker run -v composer-cache:/var/lib/composer -v ${PWD}:/opt/app dino/dompdf-module
+    
+Super easy, right? Here's a quick walkthrough as to what's going on.
+
+* `docker build -t dino/dompdf-module .` builds a docker image that will be used for each run (i.e. each time `docker run` is executed) and tags it with the name `dino/dompdf-module`.
+* `docker volume create --name composer-cache` creates a volume that holds the PHP Composer cache. Having this cache speeds up builds and avoids exceeding GitHub API limits.
+* `docker run -v composer-cache:/var/lib/composer -v ${PWD}:/opt/app dino/dompdf-module` runs the default build in a new Docker container derived from the image tagged `dino/dompdf-module`. The root of the project and PHP Composer cache volume are mounted so that artifacts generated during the build process are available to you on your local machine.
+
+**Note:** You only need to run the first two commands once. The third command is what actually performs the build steps.
 
 ## To-do
   - Add command line support.

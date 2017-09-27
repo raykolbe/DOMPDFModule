@@ -27,7 +27,7 @@ php:
 before_install:
   - composer require --update-with-dependencies zendframework/zend-loader:${ZF_VERSION} zendframework/zend-servicemanager:${ZF_VERSION} zendframework/zend-modulemanager:${ZF_VERSION} zendframework/zend-mvc:${ZF_VERSION} zendframework/zend-view:${ZF_VERSION} zendframework/zend-serializer:${ZF_VERSION} zendframework/zend-log:${ZF_VERSION} zendframework/zend-i18n:${ZF_VERSION} zendframework/zend-http:${ZF_VERSION} zendframework/zend-console:${ZF_VERSION}
 
-script: build.sh
+script: ./build.sh
 
 after_success:
   - vendor/bin/test-reporter

@@ -8,13 +8,13 @@ env:
 matrix:
   fast_finish: true
   include:
-    - php: 5.3
+    - php: 5.3.29
       dist: precise
       env: ZF_VERSION=^2.4
-    - php: 5.3
+    - php: 5.3.29
       dist: precise
       env: ZF_VERSION=2.4.*
-    - php: 5.3
+    - php: 5.3.29
       dist: precise
       env: ZF_VERSION=2.5.*
 

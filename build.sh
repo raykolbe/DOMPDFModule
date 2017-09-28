@@ -40,8 +40,7 @@ which php &> /dev/null || {
 }
 
 # Ensure supported PHP version (5.3.29+)
-php -r 'exit((int) !(PHP_VERSION_ID > 50329));' || {
-    php -r 'var_export(PHP_VERSION_ID);'
+php -r 'exit((int) !(PHP_VERSION_ID >= 50329));' || {
     echo 'Unsupported version of PHP. Aborting build.'
     exit 1
 }

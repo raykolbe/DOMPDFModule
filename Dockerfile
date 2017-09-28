@@ -1,7 +1,7 @@
-FROM php:7.0
+ARG PHP_VERSION=7.0
+FROM php:${PHP_VERSION}
 
 ENV COMPOSER_HOME=/var/lib/composer
-VOLUME /var/lib/composer
 WORKDIR /opt/app
 
 RUN apt-get update -y && \
@@ -14,4 +14,4 @@ RUN apt-get update -y && \
     php /tmp/composer-setup.php --no-ansi --install-dir=/usr/local/bin --filename=composer && \
     rm -rf /tmp/composer-setup.php
 
-CMD ["./build.sh" ]
+ENTRYPOINT ["./build.sh" ]

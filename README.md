@@ -64,21 +64,33 @@ class ReportController extends AbstractActionController
 }
 ```
 ## Development
-So you want to contribute? Fantastic! Don't worry, it's easy. Local builds, tests, and code quality checks can be executed via Docker. This ensures that each build is consistent when run from different machines.
+So you want to contribute? Fantastic! Don't worry, it's easy. Local builds, tests, and code quality checks can be executed using [Docker](https://www.docker.com/).
 
-Just install Docker and run these commands from the CLI:
+### Quick Start
+1. Install [Docker CE](https://www.docker.com/community-edition).
+2. Run the following from your terminal:
 
-    docker build -t dino/dompdf-module .
-    docker volume create --name composer-cache
-    docker run -v composer-cache:/var/lib/composer -v ${PWD}:/opt/app dino/dompdf-module
+```
+docker build -t dino/dompdf-module .
+docker run -v composer-cache:/var/lib/composer -v ${PWD}:/opt/app dino/dompdf-module
+```
     
-Super easy, right? Here's a quick walkthrough as to what's going on.
+Super easy, right? Here's a quick walk through as to what's going on.
 
 * `docker build -t dino/dompdf-module .` builds a docker image that will be used for each run (i.e. each time `docker run` is executed) and tags it with the name `dino/dompdf-module`.
-* `docker volume create --name composer-cache` creates a volume that holds the PHP Composer cache. Having this cache speeds up builds and avoids exceeding GitHub API limits.
 * `docker run -v composer-cache:/var/lib/composer -v ${PWD}:/opt/app dino/dompdf-module` runs the default build in a new Docker container derived from the image tagged `dino/dompdf-module`. The root of the project and PHP Composer cache volume are mounted so that artifacts generated during the build process are available to you on your local machine.
 
-**Note:** You only need to run the first two commands once. The third command is what actually performs the build steps.
+**Note:** You only need to run the first command once in order to build the image. The second command is what executes the build (build, tests, code quality checks, etc.).
+
+### Other Supported PHP Versions
+By default, builds executed using Docker are done so using the [latest stable version of PHP](http://php.net/supported-versions.php). If you're adventurous you can execute builds against other [supported versions](http://php.net/supported-versions.php) of PHP.
+
+**PHP 5.6**
+
+```
+docker build --build-arg PHP_VERSION=5.6 --tag dino/dompdf-module-php56 .
+docker run -v composer-cache:/var/lib/composer -v ${PWD}:/opt/app dino/dompdf-module-php56
+```
 
 ## To-do
   - Add command line support.

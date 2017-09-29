@@ -4,3 +4,6 @@ vendor/
 
 # Local configs
 config/autoload/*.local.php
+
+# Build directories
+build/*

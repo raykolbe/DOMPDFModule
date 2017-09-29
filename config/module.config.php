@@ -84,17 +84,6 @@ return array(
         'chroot' => realpath(__DIR__ . '/../../../dompdf/dompdf/'),
 
         /**
-         * Whether to use Unicode fonts or not.
-         *
-         * When set to true the PDF backend must be set to "CPDF" and fonts must be
-         * loaded via load_font.php.
-         *
-         * When enabled, dompdf can support all Unicode glyphs.  Any glyphs used in a
-         * document must be present in your fonts, however.
-         */
-        'unicode_enabled' => true,
-
-        /**
          * Whether to make font subsetting or not.
          */
         'enable_fontsubsetting' => false,
@@ -153,7 +142,7 @@ return array(
          * If pdflib present in web server and auto or selected explicitely above,
          * a real license code must exist!
          */
-        //def("DOMPDF_PDFLIB_LICENSE", "your license key here");
+        'pdflib_license' => '',
 
         /**
          * The default paper size.
@@ -262,14 +251,6 @@ return array(
         'font_height_ratio' => 1.1,
 
         /**
-         * Enable CSS float
-         *
-         * Allows people to disabled CSS float support
-         * @var bool
-         */
-        'enable_css_float' => false,
-
-        /**
          * Use the more-than-experimental HTML5 Lib parser
          */
         'enable_html5parser' => false,
@@ -277,7 +258,7 @@ return array(
         'debug_keep_temp' => false,
         'debug_css' => false,
         'debug_layout' => false,
-        'debug_layout_links' => false,
+        'debug_layout_lines' => false,
         'debug_layout_blocks' => false,
         'debug_layout_inline' => false,
         'debug_layout_padding_box' => false

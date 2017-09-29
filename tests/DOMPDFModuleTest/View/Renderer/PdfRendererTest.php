@@ -55,16 +55,16 @@ class PdfRendererTest extends TestCase
 
     public function testItHasAnEngine()
     {
-        $this->assertInstanceOf('DOMPDF', $this->renderer->getEngine());
+        $this->assertInstanceOf('\Dompdf\Dompdf', $this->renderer->getEngine());
     }
 
     public function testItRendersAPdfModel()
     {
         $this->htmlRenderer->expects($this->once())->method('render');
 
-        $this->engine->expects($this->once())->method('set_paper');
-        $this->engine->expects($this->once())->method('set_base_path');
-        $this->engine->expects($this->once())->method('load_html');
+        $this->engine->expects($this->once())->method('setPaper');
+        $this->engine->expects($this->once())->method('setBasePath');
+        $this->engine->expects($this->once())->method('loadHtml');
         $this->engine->expects($this->once())->method('render');
         $this->engine->expects($this->once())->method('output');
 
@@ -106,7 +106,7 @@ class PdfRendererTest extends TestCase
 
         $this->htmlRenderer = $this->getMock('Zend\View\Renderer\RendererInterface');
         $this->resolver = $this->getMock('Zend\View\Resolver\ResolverInterface');
-        $this->engine = $this->getMockBuilder('DOMPDF')->disableOriginalConstructor()->getMock();
+        $this->engine = $this->getMockBuilder('\Dompdf\Dompdf')->disableOriginalConstructor()->getMock();
 
         $this->renderer = new PdfRenderer();
         $this->renderer->setHtmlRenderer($this->htmlRenderer);

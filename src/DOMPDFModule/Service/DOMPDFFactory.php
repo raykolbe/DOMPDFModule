@@ -19,89 +19,52 @@
 
 namespace DOMPDFModule\Service;
 
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
-use DOMPDF;
 
 class DOMPDFFactory implements FactoryInterface
 {
     /**
-     * An array of keys that map DOMPDF define keys to DOMPDFModule config's
-     * keys.
-     *
-     * @var array
-     */
-    private static $configCompatMapping = array(
-        'font_directory'            => 'DOMPDF_FONT_DIR',
-        'font_cache_directory'      => 'DOMPDF_FONT_CACHE',
-        'temporary_directory'       => 'DOMPDF_TEMP_DIR',
-        'chroot'                    => 'DOMPDF_CHROOT',
-        'unicode_enabled'           => 'DOMPDF_UNICODE_ENABLED',
-        'enable_fontsubsetting'     => 'DOMPDF_ENABLE_FONTSUBSETTING',
-        'pdf_backend'               => 'DOMPDF_PDF_BACKEND',
-        'default_media_type'        => 'DOMPDF_DEFAULT_MEDIA_TYPE',
-        'default_paper_size'        => 'DOMPDF_DEFAULT_PAPER_SIZE',
-        'default_font'              => 'DOMPDF_DEFAULT_FONT',
-        'dpi'                       => 'DOMPDF_DPI',
-        'enable_php'                => 'DOMPDF_ENABLE_PHP',
-        'enable_javascript'         => 'DOMPDF_ENABLE_JAVASCRIPT',
-        'enable_remote'             => 'DOMPDF_ENABLE_REMOTE',
-        'log_output_file'           => 'DOMPDF_LOG_OUTPUT_FILE',
-        'font_height_ratio'         => 'DOMPDF_FONT_HEIGHT_RATIO',
-        'enable_css_float'          => 'DOMPDF_ENABLE_CSS_FLOAT',
-        'enable_html5parser'        => 'DOMPDF_ENABLE_HTML5PARSER',
-        'debug_png'                 => 'DEBUGPNG',
-        'debug_keep_temp'           => 'DEBUGKEEPTEMP',
-        'debug_css'                 => 'DEBUGCSS',
-        'debug_layout'              => 'DEBUG_LAYOUT',
-        'debug_layout_links'        => 'DEBUG_LAYOUT_LINES',
-        'debug_layout_blocks'       => 'DEBUG_LAYOUT_BLOCKS',
-        'debug_layout_inline'       => 'DEBUG_LAYOUT_INLINE',
-        'debug_layout_padding_box'  => 'DEBUG_LAYOUT_PADDINGBOX'
-    );
-    
-    /**
-     * Creates an instance of DOMPDF.
+     * Creates an instance of Dompdf.
      *
      * @param  ServiceLocatorInterface $serviceLocator
-     * @return DOMPDF
+     * @return Dompdf
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        defined('DOMPDF_DIR') || define("DOMPDF_DIR", __DIR__ . '/../../../../../dompdf/dompdf');
-        defined('DOMPDF_INC_DIR') || define("DOMPDF_INC_DIR", DOMPDF_DIR . "/include");
-        defined('DOMPDF_LIB_DIR') || define("DOMPDF_LIB_DIR", DOMPDF_DIR . "/lib");
-        defined('DOMPDF_AUTOLOAD_PREPEND') || define("DOMPDF_AUTOLOAD_PREPEND", false);
-        defined('DOMPDF_ADMIN_USERNAME') || define("DOMPDF_ADMIN_USERNAME", false);
-        defined('DOMPDF_ADMIN_PASSWORD') || define("DOMPDF_ADMIN_PASSWORD", false);
-
         $config = $serviceLocator->get('config');
-        $this->applyCompatGlobals($config['dompdf_module']);
+        $moduleConfig = $config['dompdf_module'];
 
-        require_once DOMPDF_LIB_DIR . '/html5lib/Parser.php';
-        require_once DOMPDF_INC_DIR . '/functions.inc.php';
-        require_once __DIR__ . '/../../../config/module.compat.php';
-        
-        return new DOMPDF();
-    }
+        $options = array(
+            'temp_dir'                   => $moduleConfig['temporary_directory'],
+            'font_dir'                   => $moduleConfig['font_directory'],
+            'font_cache'                 => $moduleConfig['font_cache_directory'],
+            'chroot'                     => $moduleConfig['chroot'],
+            'log_output_file'            => $moduleConfig['log_output_file'],
+            'default_media_type'         => $moduleConfig['default_media_type'],
+            'default_paper_size'         => $moduleConfig['default_paper_size'],
+            'default_font'               => $moduleConfig['default_font'],
+            'dpi'                        => $moduleConfig['dpi'],
+            'font_height_ratio'          => $moduleConfig['font_height_ratio'],
+            'is_php_enabled'             => $moduleConfig['enable_php'],
+            'is_remote_enabled'          => $moduleConfig['enable_remote'],
+            'is_javascript_enabled'      => $moduleConfig['enable_javascript'],
+            'is_html5_parser_enabled'    => $moduleConfig['enable_html5parser'],
+            'is_font_subsetting_enabled' => $moduleConfig['enable_fontsubsetting'],
+            'debug_png'                  => $moduleConfig['debug_png'],
+            'debug_keep_temp'            => $moduleConfig['debug_keep_temp'],
+            'debug_css'                  => $moduleConfig['debug_css'],
+            'debug_layout'               => $moduleConfig['debug_layout'],
+            'debug_layout_lines'         => $moduleConfig['debug_layout_lines'],
+            'debug_layout_blocks'        => $moduleConfig['debug_layout_blocks'],
+            'debug_layout_inline'        => $moduleConfig['debug_layout_inline'],
+            'debug_layout_padding_box'   => $moduleConfig['debug_layout_padding_box'],
+            'pdf_backend'                => $moduleConfig['pdf_backend'],
+            'pdflib_license'             => $moduleConfig['pdflib_license']
+        );
 
-    /**
-     * Declares global constants supported by DOMPDF lib.
-     *
-     * @param array $config
-     */
-    private function applyCompatGlobals(array $config)
-    {
-        foreach ($config as $key => $value) {
-            if (! array_key_exists($key, static::$configCompatMapping)) {
-                continue;
-            }
-
-            if (defined(static::$configCompatMapping[$key])) {
-                continue;
-            }
-
-            define(static::$configCompatMapping[$key], $value);
-        }
+        return new Dompdf(new Options($options));
     }
 }

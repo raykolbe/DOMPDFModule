@@ -47,7 +47,7 @@ class PdfModelTest extends \PHPUnit_Framework_TestCase
 
     public function testItHasDefaultFileName()
     {
-        $this->assertNull($this->model->getOption('fileName'));
+        $this->assertEquals('untitled.pdf', $this->model->getOption('fileName'));
     }
 
     public function testItIsTerminal()

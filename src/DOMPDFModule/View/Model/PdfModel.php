@@ -33,7 +33,7 @@ class PdfModel extends ViewModel
         'basePath' => '/',
         'fileName' => null
     );
-    
+
     /**
      * PDF probably won't need to be captured into a
      * a parent container by default.

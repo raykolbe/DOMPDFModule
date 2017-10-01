@@ -19,6 +19,8 @@
 
 namespace DOMPDFModule\View\Renderer;
 
+use DOMPDFModule\View\Model\PdfModel;
+use Zend\View\Exception\InvalidArgumentException;
 use Zend\View\Renderer\RendererInterface as Renderer;
 use Zend\View\Resolver\ResolverInterface as Resolver;
 use DOMPDF;
@@ -45,7 +47,12 @@ class PdfRenderer implements Renderer
         $this->dompdf = $dompdf;
         return $this;
     }
-    
+
+    /**
+     * {@inheritdoc}
+     *
+     * @return DOMPDF
+     */
     public function getEngine()
     {
         return $this->dompdf;
@@ -60,6 +67,14 @@ class PdfRenderer implements Renderer
      */
     public function render($nameOrModel, $values = null)
     {
+        if (!($nameOrModel instanceof PdfModel)) {
+            throw new InvalidArgumentException(sprintf(
+                '%s expects a PdfModel as the first argument; received "%s"',
+                __METHOD__,
+                (is_object($nameOrModel) ? get_class($nameOrModel) : gettype($nameOrModel))
+            ));
+        }
+
         $html = $this->getHtmlRenderer()->render($nameOrModel, $values);
         
         $paperSize = $nameOrModel->getOption('paperSize');

@@ -117,6 +117,7 @@ class PdfStrategy implements ListenerAggregateInterface
         $response = $event->getResponse();
         $response->setContent($result);
         $response->getHeaders()->addHeaderLine('content-type', 'application/pdf');
+        $response->getHeaders()->addHeaderLine('Content-Length', strlen($result));
         
         $fileName = $event->getModel()->getOption('fileName');
         if (isset($fileName)) {

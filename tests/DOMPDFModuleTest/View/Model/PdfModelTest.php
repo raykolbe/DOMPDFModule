@@ -50,6 +50,11 @@ class PdfModelTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('untitled.pdf', $this->model->getOption('fileName'));
     }
 
+    public function testItHasDefaultDisplayOption()
+    {
+        $this->assertEquals(PdfModel::DISPLAY_INLINE, $this->model->getOption('display'));
+    }
+
     public function testItIsTerminal()
     {
         $this->assertTrue($this->model->terminate());

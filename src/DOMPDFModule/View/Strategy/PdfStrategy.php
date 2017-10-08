@@ -108,26 +108,27 @@ class PdfStrategy implements ListenerAggregateInterface
         }
 
         $result = $event->getResult();
-
         if (!is_string($result)) {
-            // @todo Potentially throw an exception here since we should *always* get back a result.
+            // No output to display. Good bye!
             return;
         }
         
         $response = $event->getResponse();
         $response->setContent($result);
-        $response->getHeaders()->addHeaderLine('content-type', 'application/pdf');
-        
-        $fileName = $event->getModel()->getOption('fileName');
-        if (isset($fileName)) {
-            if (substr($fileName, -4) != '.pdf') {
-                $fileName .= '.pdf';
-            }
-            
-            $response->getHeaders()->addHeaderLine(
-                'Content-Disposition',
-                'attachment; filename=' . $fileName
-            );
+
+        $model   = $event->getModel();
+        $options = $model->getOptions();
+
+        $fileName        = $options['fileName'];
+        $dispositionType = $options['display'];
+
+        if (substr($fileName, -4) != '.pdf') {
+            $fileName .= '.pdf';
         }
+
+        $headerValue = sprintf('%s; filename="%s"', $dispositionType, $fileName);
+
+        $response->getHeaders()->addHeaderLine('Content-Type', 'application/pdf');
+        $response->getHeaders()->addHeaderLine('Content-Disposition', $headerValue);
     }
 }

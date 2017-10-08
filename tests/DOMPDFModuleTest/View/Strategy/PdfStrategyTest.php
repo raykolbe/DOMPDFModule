@@ -90,7 +90,7 @@ class PdfStrategyTest extends TestCase
         $this->assertNull($result);
     }
     
-    public function testContentTypeResponseHeader()
+    public function testItAddsApplicationPdfContentType()
     {
         $model = new PdfModel();
         $model->setTemplate('basic.phtml');
@@ -103,7 +103,7 @@ class PdfStrategyTest extends TestCase
         $this->strategy->injectResponse($this->event);
         
         $headers           = $this->event->getResponse()->getHeaders();
-        $contentTypeHeader = $headers->get('content-type');
+        $contentTypeHeader = $headers->get('Content-Type');
         
         $this->assertInstanceOf('Zend\Http\Header\ContentType', $contentTypeHeader);
         $this->assertEquals($contentTypeHeader->getFieldValue(), 'application/pdf');
@@ -111,11 +111,12 @@ class PdfStrategyTest extends TestCase
         ob_end_flush(); // Clear out any buffers held by renderers.
     }
     
-    public function testResponseHeadersWithFileName()
+    public function testItAddsAttachmentDispositionType()
     {
         $model = new PdfModel();
         $model->setTemplate('basic.phtml');
         $model->setOption('fileName', 'testPdfFileName');
+        $model->setOption('display', PdfModel::DISPLAY_ATTACHMENT);
         
         $this->event->setModel($model);
         $this->event->setResponse($this->response);
@@ -124,11 +125,34 @@ class PdfStrategyTest extends TestCase
         
         $this->strategy->injectResponse($this->event);
         
-        $headers = $this->event->getResponse()->getHeaders();
+        $headers            = $this->event->getResponse()->getHeaders();
         $contentDisposition = $headers->get('Content-Disposition');
         
         $this->assertInstanceOf('Zend\Http\Header\ContentDisposition', $contentDisposition);
-        $this->assertEquals($contentDisposition->getFieldValue(), 'attachment; filename=testPdfFileName.pdf');
+        $this->assertEquals($contentDisposition->getFieldValue(), 'attachment; filename="testPdfFileName.pdf"');
+
+        ob_end_flush(); // Clear out any buffers held by renderers.
+    }
+
+    public function testItAddsInlineDispositionType()
+    {
+        $model = new PdfModel();
+        $model->setTemplate('basic.phtml');
+        $model->setOption('fileName', 'testPdfFileName');
+        $model->setOption('display', PdfModel::DISPLAY_INLINE);
+
+        $this->event->setModel($model);
+        $this->event->setResponse($this->response);
+        $this->event->setRenderer($this->renderer);
+        $this->event->setResult($this->renderer->render($model));
+
+        $this->strategy->injectResponse($this->event);
+
+        $headers            = $this->event->getResponse()->getHeaders();
+        $contentDisposition = $headers->get('Content-Disposition');
+
+        $this->assertInstanceOf('Zend\Http\Header\ContentDisposition', $contentDisposition);
+        $this->assertEquals($contentDisposition->getFieldValue(), 'inline; filename="testPdfFileName.pdf"');
 
         ob_end_flush(); // Clear out any buffers held by renderers.
     }

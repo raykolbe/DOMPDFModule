@@ -50,9 +50,10 @@ class ReportController extends AbstractActionController
     public function monthlyReportPdfAction()
     {
         $pdf = new PdfModel();
-        $pdf->setOption('fileName', 'monthly-report'); // Triggers PDF download, automatically appends ".pdf"
-        $pdf->setOption('paperSize', 'a4'); // Defaults to "8x11"
-        $pdf->setOption('paperOrientation', 'landscape'); // Defaults to "portrait"
+        $pdf->setOption('fileName', 'monthly-report');            // "pdf" extension is automatically appended
+        $pdf->setOption('display', PdfModel::DISPLAY_ATTACHMENT); // Triggers browser to prompt "save as" dialog
+        $pdf->setOption('paperSize', 'a4');                       // Defaults to "8x11"
+        $pdf->setOption('paperOrientation', 'landscape');         // Defaults to "portrait"
         
         // To set view variables
         $pdf->setVariables(array(

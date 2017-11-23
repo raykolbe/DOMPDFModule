@@ -19,7 +19,7 @@
 
 namespace DOMPDFModuleTest\View\Strategy;
 
-use Zend\EventManager\EventManager;
+use Zend\Stdlib\ResponseInterface;
 use Zend\View\Model\ViewModel;
 use Zend\View\Resolver\TemplatePathStack;
 use Zend\View\Renderer\PhpRenderer;
@@ -89,24 +89,21 @@ class PdfStrategyTest extends TestCase
 
         $this->assertNull($result);
     }
-    
+
     public function testItAddsApplicationPdfContentType()
     {
         $model = new PdfModel();
         $model->setTemplate('basic.phtml');
-        
-        $this->event->setModel($model);
-        $this->event->setResponse($this->response);
-        $this->event->setRenderer($this->renderer);
-        $this->event->setResult($this->renderer->render($model));
-        
-        $this->strategy->injectResponse($this->event);
-        
-        $headers           = $this->event->getResponse()->getHeaders();
-        $contentTypeHeader = $headers->get('Content-Type');
-        
-        $this->assertInstanceOf('Zend\Http\Header\ContentType', $contentTypeHeader);
-        $this->assertEquals($contentTypeHeader->getFieldValue(), 'application/pdf');
+
+        $this->execute($this->strategy, $this->event, $model);
+
+        $response = $this->event->getResponse();
+        $this->assertHeaderEqualTo(
+            $response,
+            'Content-Type',
+            'application/pdf',
+            'content type'
+        );
 
         ob_end_flush(); // Clear out any buffers held by renderers.
     }
@@ -117,19 +114,16 @@ class PdfStrategyTest extends TestCase
         $model->setTemplate('basic.phtml');
         $model->setOption('fileName', 'testPdfFileName');
         $model->setOption('display', PdfModel::DISPLAY_ATTACHMENT);
-        
-        $this->event->setModel($model);
-        $this->event->setResponse($this->response);
-        $this->event->setRenderer($this->renderer);
-        $this->event->setResult($this->renderer->render($model));
-        
-        $this->strategy->injectResponse($this->event);
-        
-        $headers            = $this->event->getResponse()->getHeaders();
-        $contentDisposition = $headers->get('Content-Disposition');
-        
-        $this->assertInstanceOf('Zend\Http\Header\ContentDisposition', $contentDisposition);
-        $this->assertEquals($contentDisposition->getFieldValue(), 'attachment; filename="testPdfFileName.pdf"');
+
+        $this->execute($this->strategy, $this->event, $model);
+
+        $response = $this->event->getResponse();
+        $this->assertHeaderEqualTo(
+            $response,
+            'Content-Disposition',
+            'attachment; filename="testPdfFileName.pdf"',
+            'content disposition'
+        );
 
         ob_end_flush(); // Clear out any buffers held by renderers.
     }
@@ -141,18 +135,33 @@ class PdfStrategyTest extends TestCase
         $model->setOption('fileName', 'testPdfFileName');
         $model->setOption('display', PdfModel::DISPLAY_INLINE);
 
-        $this->event->setModel($model);
-        $this->event->setResponse($this->response);
-        $this->event->setRenderer($this->renderer);
-        $this->event->setResult($this->renderer->render($model));
+        $this->execute($this->strategy, $this->event, $model);
 
-        $this->strategy->injectResponse($this->event);
+        $response = $this->event->getResponse();
+        $this->assertHeaderEqualTo(
+            $response,
+            'Content-Disposition',
+            'inline; filename="testPdfFileName.pdf"',
+            'content disposition'
+        );
 
-        $headers            = $this->event->getResponse()->getHeaders();
-        $contentDisposition = $headers->get('Content-Disposition');
+        ob_end_flush(); // Clear out any buffers held by renderers.
+    }
 
-        $this->assertInstanceOf('Zend\Http\Header\ContentDisposition', $contentDisposition);
-        $this->assertEquals($contentDisposition->getFieldValue(), 'inline; filename="testPdfFileName.pdf"');
+    public function testItAddsContentLength()
+    {
+        $model = new PdfModel();
+        $model->setTemplate('basic.phtml');
+
+        $this->execute($this->strategy, $this->event, $model);
+
+        $response = $this->event->getResponse();
+        $this->assertHeaderEqualTo(
+            $response,
+            'Content-Length',
+            989,
+            'content length'
+        );
 
         ob_end_flush(); // Clear out any buffers held by renderers.
     }
@@ -178,5 +187,23 @@ class PdfStrategyTest extends TestCase
         $htmlRenderer->setResolver($this->resolver);
         $this->renderer->setHtmlRenderer($htmlRenderer);
         $this->renderer->setEngine($this->getServiceManager()->get('dompdf'));
+    }
+
+    private function execute(PdfStrategy $strategy, ViewEvent $event, PdfModel $model)
+    {
+        $event->setModel($model);
+        $event->setResponse($this->response);
+        $event->setRenderer($this->renderer);
+        $event->setResult($this->renderer->render($model));
+
+        $strategy->injectResponse($this->event);
+    }
+
+    private function assertHeaderEqualTo(ResponseInterface $response, $name, $expected, $message = '')
+    {
+        $headers = $response->getHeaders();
+        $header = $headers->get($name);
+
+        $this->assertEquals($header->getFieldValue(), $expected, $message);
     }
 }

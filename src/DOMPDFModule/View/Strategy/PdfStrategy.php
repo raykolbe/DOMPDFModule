@@ -128,7 +128,8 @@ class PdfStrategy implements ListenerAggregateInterface
 
         $headerValue = sprintf('%s; filename="%s"', $dispositionType, $fileName);
 
-        $response->getHeaders()->addHeaderLine('Content-Type', 'application/pdf');
         $response->getHeaders()->addHeaderLine('Content-Disposition', $headerValue);
+        $response->getHeaders()->addHeaderLine('Content-Length', strlen($result));
+        $response->getHeaders()->addHeaderLine('Content-Type', 'application/pdf');
     }
 }

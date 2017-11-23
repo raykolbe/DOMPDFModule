@@ -19,7 +19,7 @@
 
 namespace DOMPDFModule\Service;
 
-use \DOMPDF;
+use Dompdf\Dompdf;
 use DOMPDFModuleTest\Framework\TestCase;
 
 class DOMPDFFactoryTest extends TestCase
@@ -35,7 +35,7 @@ class DOMPDFFactoryTest extends TestCase
     {
         $dompdf = $this->factory->createService($this->getServiceManager());
 
-        $this->assertInstanceOf('\DOMPDF', $dompdf);
+        $this->assertInstanceOf('\Dompdf\Dompdf', $dompdf);
         $this->assertNotNullOptions($dompdf);
     }
 
@@ -64,28 +64,32 @@ class DOMPDFFactoryTest extends TestCase
      */
     private function assertNotNullOptions(Dompdf $dompdf)
     {
-        $this->assertNotNull($dompdf->get_option('temp_dir'), 'temp_dir');
-        $this->assertNotNull($dompdf->get_option('font_dir'), 'font_dir');
-        $this->assertNotNull($dompdf->get_option('font_cache'), 'font_cache');
-        $this->assertNotNull($dompdf->get_option('chroot'), 'chroot');
-        $this->assertNotNull($dompdf->get_option('log_output_file'), 'log_output_file');
-        $this->assertNotNull($dompdf->get_option('default_media_type'), 'default_media_type');
-        $this->assertNotNull($dompdf->get_option('default_paper_size'), 'default_paper_size');
-        $this->assertNotNull($dompdf->get_option('default_font'), 'default_font');
-        $this->assertNotNull($dompdf->get_option('dpi'), 'dpi');
-        $this->assertNotNull($dompdf->get_option('font_height_ratio'), 'font_height_ratio');
-        $this->assertNotNull($dompdf->get_option('enable_php'), 'enable_php');
-        $this->assertNotNull($dompdf->get_option('enable_remote'), 'enable_remote');
-        $this->assertNotNull($dompdf->get_option('enable_javascript'), 'enable_javascript');
-        $this->assertNotNull($dompdf->get_option('enable_html5_parser'), 'enable_html5_parser');
-        $this->assertNotNull($dompdf->get_option('enable_font_subsetting'), 'enable_font_subsetting');
-        $this->assertNotNull($dompdf->get_option('debug_png'), 'debug_png');
-        $this->assertNotNull($dompdf->get_option('debug_keep_temp'), 'debug_keep_temp');
-        $this->assertNotNull($dompdf->get_option('debug_css'), 'debug_css');
-        $this->assertNotNull($dompdf->get_option('debug_layout'), 'debug_layout');
-        $this->assertNotNull($dompdf->get_option('debug_layout_lines'), 'debug_layout_lines');
-        $this->assertNotNull($dompdf->get_option('debug_layout_blocks'), 'debug_layout_blocks');
-        $this->assertNotNull($dompdf->get_option('debug_layout_inline'), 'debug_layout_inline');
-        $this->assertNotNull($dompdf->get_option('debug_layout_padding_box'), 'debug_layout_padding_box');
+        $options = $dompdf->getOptions();
+
+        $this->assertNotNull($options->get('temp_dir'), 'temp_dir');
+        $this->assertNotNull($options->get('font_dir'), 'font_dir');
+        $this->assertNotNull($options->get('font_cache'), 'font_cache');
+        $this->assertNotNull($options->get('chroot'), 'chroot');
+        $this->assertNotNull($options->get('log_output_file'), 'log_output_file');
+        $this->assertNotNull($options->get('default_media_type'), 'default_media_type');
+        $this->assertNotNull($options->get('default_paper_size'), 'default_paper_size');
+        $this->assertNotNull($options->get('default_font'), 'default_font');
+        $this->assertNotNull($options->get('dpi'), 'dpi');
+        $this->assertNotNull($options->get('font_height_ratio'), 'font_height_ratio');
+        $this->assertNotNull($options->get('is_php_enabled'), 'is_php_enabled');
+        $this->assertNotNull($options->get('is_remote_enabled'), 'is_remote_enabled');
+        $this->assertNotNull($options->get('is_javascript_enabled'), 'is_javascript_enabled');
+        $this->assertNotNull($options->get('is_html5_parser_enabled'), 'is_html5_parser_enabled');
+        $this->assertNotNull($options->get('is_font_subsetting_enabled'), 'is_font_subsetting_enabled');
+        $this->assertNotNull($options->get('debug_png'), 'debug_png');
+        $this->assertNotNull($options->get('debug_keep_temp'), 'debug_keep_temp');
+        $this->assertNotNull($options->get('debug_css'), 'debug_css');
+        $this->assertNotNull($options->get('debug_layout'), 'debug_layout');
+        $this->assertNotNull($options->get('debug_layout_lines'), 'debug_layout_lines');
+        $this->assertNotNull($options->get('debug_layout_blocks'), 'debug_layout_blocks');
+        $this->assertNotNull($options->get('debug_layout_inline'), 'debug_layout_inline');
+        $this->assertNotNull($options->get('debug_layout_padding_box'), 'debug_layout_padding_box');
+        $this->assertNotNull($options->get('pdf_backend'), 'pdf_backend');
+        $this->assertNotNull($options->get('pdflib_license'), 'pdflib_license');
     }
 }

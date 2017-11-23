@@ -104,8 +104,6 @@ class PdfStrategyTest extends TestCase
             'application/pdf',
             'content type'
         );
-
-        ob_end_flush(); // Clear out any buffers held by renderers.
     }
     
     public function testItAddsAttachmentDispositionType()
@@ -124,8 +122,6 @@ class PdfStrategyTest extends TestCase
             'attachment; filename="testPdfFileName.pdf"',
             'content disposition'
         );
-
-        ob_end_flush(); // Clear out any buffers held by renderers.
     }
 
     public function testItAddsInlineDispositionType()
@@ -144,8 +140,6 @@ class PdfStrategyTest extends TestCase
             'inline; filename="testPdfFileName.pdf"',
             'content disposition'
         );
-
-        ob_end_flush(); // Clear out any buffers held by renderers.
     }
 
     public function testItAddsContentLength()
@@ -159,11 +153,9 @@ class PdfStrategyTest extends TestCase
         $this->assertHeaderEqualTo(
             $response,
             'Content-Length',
-            989,
+            1148,
             'content length'
         );
-
-        ob_end_flush(); // Clear out any buffers held by renderers.
     }
 
     /**

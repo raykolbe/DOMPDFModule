@@ -23,13 +23,13 @@
         "phpmd/phpmd": "^2.4"
     },
     "autoload": {
-        "psr-0": {
-            "DompdfModule": "src/"
+        "psr-4": {
+            "DompdfModule\\": "src/DompdfModule"
         }
     },
     "autoload-dev": {
-        "psr-0": {
-            "DompdfModule": "tests/"
+        "psr-4": {
+            "DompdfModule\\": "tests/DompdfModule"
         }
     }
 }

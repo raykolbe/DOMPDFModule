@@ -20,9 +20,9 @@
 namespace DompdfModule\Service;
 
 use Dompdf\Dompdf;
-use DompdfModuleTest\Framework\TestCase;
+use DompdfModule\Framework\TestCase;
 
-class DompdfModuleTest extends TestCase
+class DompdfFactoryTest extends TestCase
 {
     /**
      * System under test.

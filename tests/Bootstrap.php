@@ -17,7 +17,7 @@
  * @license	http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-use DompdfModuleTest\Framework\TestCase;
+use DompdfModule\Framework\TestCase;
 
 ini_set('display_errors', 'On');
 error_reporting(E_ALL | E_STRICT);

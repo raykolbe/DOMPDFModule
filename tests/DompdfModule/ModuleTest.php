@@ -17,30 +17,37 @@
  * @license	http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-namespace DompdfModuleTest\Framework;
+namespace DompdfModule;
 
-use Zend\ServiceManager\ServiceManager;
-
-class TestCase extends \PHPUnit_Framework_TestCase
+class ModuleTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var ServiceManager
+     * @var Module
      */
-    protected static $serviceManager;
+    private $module;
 
-    /**
-     * @param ServiceManager $serviceManager
-     */
-    public static function setServiceManager(ServiceManager $serviceManager)
+    public function testHasConfig()
     {
-        self::$serviceManager = $serviceManager;
+        $config = $this->module->getConfig();
+
+        // Test the obvious required keys.
+        $this->assertArrayHasKey('dompdf_module', $config, 'dompdf_module');
+        $this->assertArrayHasKey('service_manager', $config, 'service_manager');
+    }
+
+    public function testHasAutoloaderConfig()
+    {
+        $config = $this->module->getAutoloaderConfig();
+        $this->assertInternalType('array', $config, 'config is array');
     }
 
     /**
-     * @return ServiceManager
+     * {@inheritDoc}
      */
-    public function getServiceManager()
+    protected function setUp()
     {
-        return self::$serviceManager;
+        parent::setUp();
+
+        $this->module = new Module();
     }
 }

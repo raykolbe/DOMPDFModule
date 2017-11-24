@@ -17,21 +17,30 @@
  * @license	http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-namespace DompdfModuleTest\Mvc\Service;
+namespace DompdfModule\Framework;
 
-use DompdfModuleTest\Framework\TestCase;
-use DompdfModule\Mvc\Service\ViewPdfStrategyFactory;
-use DompdfModule\View\Strategy\PdfStrategy;
+use Zend\ServiceManager\ServiceManager;
 
-class ViewPdfStrategyFactoryTest extends TestCase
+class TestCase extends \PHPUnit_Framework_TestCase
 {
-    public function testCreatesService()
+    /**
+     * @var ServiceManager
+     */
+    protected static $serviceManager;
+
+    /**
+     * @param ServiceManager $serviceManager
+     */
+    public static function setServiceManager(ServiceManager $serviceManager)
     {
-        $factory = new ViewPdfStrategyFactory();
+        self::$serviceManager = $serviceManager;
+    }
 
-        /* @var $instance \DompdfModule\View\Strategy\PdfStrategy */
-        $instance = $factory($this->getServiceManager(), 'ViewPdfStrategy');
-
-        $this->assertInstanceOf(PdfStrategy::class, $instance);
+    /**
+     * @return ServiceManager
+     */
+    public function getServiceManager()
+    {
+        return self::$serviceManager;
     }
 }

@@ -17,7 +17,7 @@
  * @license	http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-namespace DompdfModuleTest\View\Strategy;
+namespace DompdfModule\View\Strategy;
 
 use Zend\Stdlib\ResponseInterface;
 use Zend\View\Model\ViewModel;
@@ -25,10 +25,9 @@ use Zend\View\Resolver\TemplatePathStack;
 use Zend\View\Renderer\PhpRenderer;
 use Zend\View\ViewEvent;
 use Zend\Http\Response as HttpResponse;
-use DompdfModuleTest\Framework\TestCase;
+use DompdfModule\Framework\TestCase;
 use DompdfModule\View\Model\PdfModel;
 use DompdfModule\View\Renderer\PdfRenderer;
-use DompdfModule\View\Strategy\PdfStrategy;
 
 class PdfStrategyTest extends TestCase
 {

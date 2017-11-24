@@ -29,7 +29,7 @@
     },
     "autoload-dev": {
         "psr-0": {
-            "DompdfModuleTest": "tests/"
+            "DompdfModule": "tests/"
         }
     }
 }

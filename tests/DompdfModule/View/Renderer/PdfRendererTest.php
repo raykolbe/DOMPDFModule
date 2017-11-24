@@ -17,10 +17,10 @@
  * @license	http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-namespace DompdfModuleTest\View\Strategy;
+namespace DompdfModule\View\Strategy;
 
 use Zend\View\Model\JsonModel;
-use DompdfModuleTest\Framework\TestCase;
+use DompdfModule\Framework\TestCase;
 use DompdfModule\View\Model\PdfModel;
 use DompdfModule\View\Renderer\PdfRenderer;
 

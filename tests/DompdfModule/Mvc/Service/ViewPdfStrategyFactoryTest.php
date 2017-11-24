@@ -17,39 +17,20 @@
  * @license	http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-namespace DompdfModuleTest;
+namespace DompdfModule\Mvc\Service;
 
-use DompdfModule\Module;
+use DompdfModule\Framework\TestCase;
+use DompdfModule\View\Strategy\PdfStrategy;
 
-class ModuleTest extends \PHPUnit_Framework_TestCase
+class ViewPdfStrategyFactoryTest extends TestCase
 {
-    /**
-     * @var Module
-     */
-    private $module;
-
-    public function testHasConfig()
+    public function testCreatesService()
     {
-        $config = $this->module->getConfig();
+        $factory = new ViewPdfStrategyFactory();
 
-        // Test the obvious required keys.
-        $this->assertArrayHasKey('dompdf_module', $config, 'dompdf_module');
-        $this->assertArrayHasKey('service_manager', $config, 'service_manager');
-    }
+        /* @var $instance \DompdfModule\View\Strategy\PdfStrategy */
+        $instance = $factory($this->getServiceManager(), 'ViewPdfStrategy');
 
-    public function testHasAutoloaderConfig()
-    {
-        $config = $this->module->getAutoloaderConfig();
-        $this->assertInternalType('array', $config, 'config is array');
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    protected function setUp()
-    {
-        parent::setUp();
-
-        $this->module = new Module();
+        $this->assertInstanceOf(PdfStrategy::class, $instance);
     }
 }

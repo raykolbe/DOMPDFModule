@@ -17,11 +17,10 @@
  * @license	http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-namespace DompdfModuleTest\Mvc\Service;
+namespace DompdfModule\Mvc\Service;
 
-use DompdfModule\Mvc\Service\ViewPdfRendererFactory;
 use DompdfModule\View\Renderer\PdfRenderer;
-use DompdfModuleTest\Framework\TestCase;
+use DompdfModule\Framework\TestCase;
 
 class ViewPdfRendererFactoryTest extends TestCase
 {

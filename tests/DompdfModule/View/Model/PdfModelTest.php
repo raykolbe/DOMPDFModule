@@ -17,9 +17,7 @@
  * @license	http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-namespace DompdfModuleTest\View\Model;
-
-use DompdfModule\View\Model\PdfModel;
+namespace DompdfModule\View\Model;
 
 class PdfModelTest extends \PHPUnit_Framework_TestCase
 {

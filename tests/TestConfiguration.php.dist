@@ -19,7 +19,7 @@
 
 return [
     'modules' => [
-        'DOMPDFModule',
+        'DompdfModule',
         'Zend\Router'
     ],
     'module_listener_options' => [

@@ -17,19 +17,21 @@
  * @license	http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
+namespace DompdfModuleTest\Mvc\Service;
+
+use DompdfModule\Mvc\Service\ViewPdfRendererFactory;
+use DompdfModule\View\Renderer\PdfRenderer;
 use DompdfModuleTest\Framework\TestCase;
 
-ini_set('display_errors', 'On');
-error_reporting(E_ALL | E_STRICT);
+class ViewPdfRendererFactoryTest extends TestCase
+{
+    public function testCreatesService()
+    {
+        $factory = new ViewPdfRendererFactory();
 
-if (is_readable(__DIR__ . '/TestConfiguration.php')) {
-    $configuration = include_once __DIR__ . '/TestConfiguration.php';
-} else {
-    $configuration = include_once __DIR__ . '/TestConfiguration.php.dist';
+        /* @var $instance \DompdfModule\View\Renderer\PdfRenderer */
+        $instance = $factory($this->getServiceManager(), 'ViewPdfStrategy');
+
+        $this->assertInstanceOf(PdfRenderer::class, $instance);
+    }
 }
-
-require_once __DIR__ . '/../vendor/autoload.php';
-
-$application = \Zend\Mvc\Application::init($configuration);
-$serviceManager = $application->getServiceManager();
-TestCase::setServiceManager($serviceManager);

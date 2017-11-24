@@ -1,7 +1,7 @@
 {
     "name": "dino/dompdf-module",
     "type": "library",
-    "description": "A Zend Framework 2 module for incorporating DOMPDF support.",
+    "description": "A Zend Framework 2 module for incorporating Dompdf support.",
     "keywords": ["pdf","dompdf", "zf2"],
     "homepage": "http://raymondkolbe.com",
     "license": "MIT",
@@ -24,12 +24,12 @@
     },
     "autoload": {
         "psr-0": {
-            "DOMPDFModule": "src/"
+            "DompdfModule": "src/"
         }
     },
     "autoload-dev": {
         "psr-0": {
-            "DOMPDFModuleTest": "tests/"
+            "DompdfModuleTest": "tests/"
         }
     }
 }

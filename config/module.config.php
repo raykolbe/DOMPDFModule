@@ -17,7 +17,7 @@
  * @license	http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-namespace DOMPDFModule;
+namespace DompdfModule;
 
 return [
     'dompdf_module' => [
@@ -277,7 +277,7 @@ return [
             'Dompdf' => false
         ],
         'factories' => [
-            'Dompdf'          => Service\DOMPDFFactory::class,
+            'Dompdf'          => Service\DompdfFactory::class,
             'ViewPdfRenderer' => Mvc\Service\ViewPdfRendererFactory::class,
             'ViewPdfStrategy' => Mvc\Service\ViewPdfRendererFactory::class
         ]

@@ -1,4 +1,4 @@
-DOMPDFModule
+DompdfModule
 ============
 
 [![Build Status](https://secure.travis-ci.org/raykolbe/DOMPDFModule.png?branch=master)](http://travis-ci.org/raykolbe/DOMPDFModule) [![Code Climate](https://codeclimate.com/github/raykolbe/DOMPDFModule/badges/gpa.svg)](https://codeclimate.com/github/raykolbe/DOMPDFModule) [![Test Coverage](https://codeclimate.com/github/raykolbe/DOMPDFModule/badges/coverage.svg)](https://codeclimate.com/github/raykolbe/DOMPDFModule/coverage) [![Total Downloads](https://poser.pugx.org/dino/dompdf-module/downloads)](https://packagist.org/packages/dino/dompdf-module) [![License](https://poser.pugx.org/dino/dompdf-module/license)](https://packagist.org/packages/dino/dompdf-module)
@@ -9,7 +9,7 @@ The DOMPDF module integrates the DOMPDF library with Zend Framework 2 with minim
   - [Zend Framework 2](http://www.github.com/zendframework/zf2)
 
 ## Installation
-Installation of DOMPDFModule uses PHP Composer. For more information about
+Installation of DompdfModule uses PHP Composer. For more information about
 PHP Composer, please visit the official [PHP Composer site](http://getcomposer.org/).
 
 #### Installation steps
@@ -30,10 +30,10 @@ PHP Composer, please visit the official [PHP Composer site](http://getcomposer.o
   5. open `my/project/directory/config/application.config.php` and add the following key to your `modules`: 
 
      ```php
-     'DOMPDFModule',
+     'DompdfModule',
      ```
 #### Configuration options
-You can override options via the `dompdf_module` key in your local or global config files. See DOMPDFModule/config/module.config.php for config options.
+You can override options via the `dompdf_module` key in your local or global config files. See DompdfModule/config/module.config.php for config options.
 
 ## Usage
 
@@ -43,7 +43,7 @@ You can override options via the `dompdf_module` key in your local or global con
 namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
-use DOMPDFModule\View\Model\PdfModel;
+use DompdfModule\View\Model\PdfModel;
 
 class ReportController extends AbstractActionController
 {

@@ -19,6 +19,8 @@
 
 namespace DompdfModule;
 
+use Zend\ModuleManager\Feature\ConfigProviderInterface;
+
 class ModuleTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -30,15 +32,9 @@ class ModuleTest extends \PHPUnit_Framework_TestCase
     {
         $config = $this->module->getConfig();
 
-        // Test the obvious required keys.
+        $this->assertInstanceOf(ConfigProviderInterface::class, $this->module);
         $this->assertArrayHasKey('dompdf_module', $config, 'dompdf_module');
         $this->assertArrayHasKey('service_manager', $config, 'service_manager');
-    }
-
-    public function testHasAutoloaderConfig()
-    {
-        $config = $this->module->getAutoloaderConfig();
-        $this->assertInternalType('array', $config, 'config is array');
     }
 
     /**

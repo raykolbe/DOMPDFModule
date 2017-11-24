@@ -21,17 +21,13 @@ namespace DompdfModule\View\Strategy;
 
 use DompdfModule\View\Model;
 use DompdfModule\View\Renderer\PdfRenderer;
+use Zend\EventManager\AbstractListenerAggregate;
 use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\ListenerAggregateInterface;
 use Zend\View\ViewEvent;
 
-class PdfStrategy implements ListenerAggregateInterface
+class PdfStrategy extends AbstractListenerAggregate implements ListenerAggregateInterface
 {
-    /**
-     * @var \Zend\Stdlib\CallbackHandler[]
-     */
-    protected $listeners = [];
-
     /**
      * @var PdfRenderer
      */
@@ -59,21 +55,6 @@ class PdfStrategy implements ListenerAggregateInterface
     {
         $this->listeners[] = $events->attach(ViewEvent::EVENT_RENDERER, [$this, 'selectRenderer'], $priority);
         $this->listeners[] = $events->attach(ViewEvent::EVENT_RESPONSE, [$this, 'injectResponse'], $priority);
-    }
-
-    /**
-     * Detach aggregate listeners from the specified event manager
-     *
-     * @param  EventManagerInterface $events
-     * @return void
-     */
-    public function detach(EventManagerInterface $events)
-    {
-        foreach ($this->listeners as $index => $listener) {
-            if ($events->detach($listener)) {
-                unset($this->listeners[$index]);
-            }
-        }
     }
 
     /**

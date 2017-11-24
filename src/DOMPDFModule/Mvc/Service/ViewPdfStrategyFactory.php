@@ -36,9 +36,6 @@ class ViewPdfStrategyFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $pdfRenderer = $serviceLocator->get('ViewPdfRenderer');
-        $pdfStrategy = new PdfStrategy($pdfRenderer);
-        
-        return $pdfStrategy;
+        return new PdfStrategy($serviceLocator->get('ViewPdfRenderer'));
     }
 }

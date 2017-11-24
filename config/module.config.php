@@ -19,8 +19,8 @@
 
 namespace DOMPDFModule;
 
-return array(
-    'dompdf_module' => array(
+return [
+    'dompdf_module' => [
         /**
          * The location of the DOMPDF font directory
          *
@@ -262,24 +262,24 @@ return array(
         'debug_layout_blocks' => false,
         'debug_layout_inline' => false,
         'debug_layout_padding_box' => false
-    ),
-    'view_manager' => array(
-        'strategies' => array(
+    ],
+    'view_manager' => [
+        'strategies' => [
             'ViewPdfStrategy'
-        )
-    ),
-    'service_manager' => array(
-        'shared' => array(
+        ]
+    ],
+    'service_manager' => [
+        'shared' => [
             /**
              * DOMPDF itself has issues rendering twice in a row so we force a
              * new instance to be created.
              */
             'DOMPDF' => false
-        ),
-        'factories' => array(
+        ],
+        'factories' => [
             'DOMPDF'          => __NAMESPACE__ . '\Service\DOMPDFFactory',
             'ViewPdfRenderer' => __NAMESPACE__ . '\Mvc\Service\ViewPdfRendererFactory',
             'ViewPdfStrategy' => __NAMESPACE__ . '\Mvc\Service\ViewPdfStrategyFactory',
-        )
-    ),
-);
+        ]
+    ]
+];

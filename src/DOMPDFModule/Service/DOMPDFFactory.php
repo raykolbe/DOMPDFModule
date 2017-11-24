@@ -34,10 +34,9 @@ class DOMPDFFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $config = $serviceLocator->get('config');
-        $moduleConfig = $config['dompdf_module'];
+        $moduleConfig = $serviceLocator->get('config')['dompdf_module'];
 
-        $options = array(
+        $options = [
             'temp_dir'                   => $moduleConfig['temporary_directory'],
             'font_dir'                   => $moduleConfig['font_directory'],
             'font_cache'                 => $moduleConfig['font_cache_directory'],
@@ -63,7 +62,7 @@ class DOMPDFFactory implements FactoryInterface
             'debug_layout_padding_box'   => $moduleConfig['debug_layout_padding_box'],
             'pdf_backend'                => $moduleConfig['pdf_backend'],
             'pdflib_license'             => $moduleConfig['pdflib_license']
-        );
+        ];
 
         return new Dompdf(new Options($options));
     }

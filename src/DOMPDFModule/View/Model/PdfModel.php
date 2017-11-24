@@ -31,13 +31,13 @@ class PdfModel extends ViewModel
      * Renderer options
      * @var array
      */
-    protected $options = array(
+    protected $options = [
         'paperSize' => '8x11',
         'paperOrientation' => 'portrait',
         'basePath' => '/',
         'fileName' => self::DEFAULT_FILE_NAME,
         'display' => self::DISPLAY_INLINE
-    );
+    ];
 
     /**
      * PDF probably won't need to be captured into a

@@ -178,7 +178,7 @@ class PdfStrategyTest extends TestCase
         $htmlRenderer = new PhpRenderer();
         $htmlRenderer->setResolver($this->resolver);
         $this->renderer->setHtmlRenderer($htmlRenderer);
-        $this->renderer->setEngine($this->getServiceManager()->get('dompdf'));
+        $this->renderer->setEngine($this->getServiceManager()->get('Dompdf'));
     }
 
     private function execute(PdfStrategy $strategy, ViewEvent $event, PdfModel $model)

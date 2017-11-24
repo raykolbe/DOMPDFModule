@@ -271,15 +271,15 @@ return [
     'service_manager' => [
         'shared' => [
             /**
-             * DOMPDF itself has issues rendering twice in a row so we force a
+             * Dompdf itself has issues rendering twice in a row so we force a
              * new instance to be created.
              */
-            'DOMPDF' => false
+            'Dompdf' => false
         ],
         'factories' => [
-            'DOMPDF'          => __NAMESPACE__ . '\Service\DOMPDFFactory',
-            'ViewPdfRenderer' => __NAMESPACE__ . '\Mvc\Service\ViewPdfRendererFactory',
-            'ViewPdfStrategy' => __NAMESPACE__ . '\Mvc\Service\ViewPdfStrategyFactory',
+            'Dompdf'          => Service\DOMPDFFactory::class,
+            'ViewPdfRenderer' => Mvc\Service\ViewPdfRendererFactory::class,
+            'ViewPdfStrategy' => Mvc\Service\ViewPdfRendererFactory::class
         ]
     ]
 ];

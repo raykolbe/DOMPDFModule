@@ -20,6 +20,7 @@
 namespace DOMPDFModuleTest\Mvc\Service;
 
 use DOMPDFModule\Mvc\Service\ViewPdfStrategyFactory;
+use DOMPDFModule\View\Strategy\PdfStrategy;
 use DOMPDFModuleTest\Framework\TestCase;
 
 class ViewPdfStrategyFactoryTest extends TestCase
@@ -29,8 +30,8 @@ class ViewPdfStrategyFactoryTest extends TestCase
         $factory = new ViewPdfStrategyFactory();
 
         /* @var $instance \DOMPDFModule\View\Strategy\PdfStrategy */
-        $instance = $factory->createService($this->getServiceManager());
+        $instance = $factory($this->getServiceManager(), 'ViewPdfStrategy');
 
-        $this->assertInstanceOf('\DOMPDFModule\View\Strategy\PdfStrategy', $instance);
+        $this->assertInstanceOf(PdfStrategy::class, $instance);
     }
 }

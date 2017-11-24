@@ -33,16 +33,24 @@ class DOMPDFFactoryTest extends TestCase
 
     public function testItCreatesAValidInstance()
     {
-        $dompdf = $this->factory->createService($this->getServiceManager());
+        $factory = $this->factory;
 
-        $this->assertInstanceOf('\Dompdf\Dompdf', $dompdf);
-        $this->assertNotNullOptions($dompdf);
+        /* @var $instance Dompdf */
+        $instance = $factory($this->getServiceManager(), 'Dompdf');
+
+        $this->assertInstanceOf(Dompdf::class, $instance);
+        $this->assertNotNullOptions($instance);
     }
 
     public function testItCreatesUniqueInstances()
     {
-        $firstInstance = $this->factory->createService($this->getServiceManager());
-        $secondInstance = $this->factory->createService($this->getServiceManager());
+        $factory = $this->factory;
+
+        /* @var $firstInstance Dompdf */
+        $firstInstance = $factory($this->getServiceManager(), 'Dompdf');
+
+        /* @var $secondInstance Dompdf */
+        $secondInstance = $factory($this->getServiceManager(), 'Dompdf');
 
         $this->assertNotSame($firstInstance, $secondInstance);
     }
@@ -58,7 +66,7 @@ class DOMPDFFactoryTest extends TestCase
     }
 
     /**
-     * Asserts that the given DOMPDF instance contains not null options for has options set.
+     * Asserts that the given Dompdf instance contains not null options for has options set.
      *
      * @param Dompdf $dompdf
      */

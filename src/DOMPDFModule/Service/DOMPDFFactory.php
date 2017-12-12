@@ -30,38 +30,44 @@ class DOMPDFFactory implements FactoryInterface
      * Creates an instance of Dompdf.
      *
      * @param  ServiceLocatorInterface $serviceLocator
+     *
      * @return Dompdf
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         $moduleConfig = $serviceLocator->get('config')['dompdf_module'];
 
+        if (isset($serviceLocator->get('config')['dompdf_module_override'])) {
+            $customConfig = $serviceLocator->get('config')['dompdf_module_override'];
+            $moduleConfig = array_merge($moduleConfig, $customConfig);
+        }
+
         $options = [
-            'temp_dir'                   => $moduleConfig['temporary_directory'],
-            'font_dir'                   => $moduleConfig['font_directory'],
-            'font_cache'                 => $moduleConfig['font_cache_directory'],
-            'chroot'                     => $moduleConfig['chroot'],
-            'log_output_file'            => $moduleConfig['log_output_file'],
-            'default_media_type'         => $moduleConfig['default_media_type'],
-            'default_paper_size'         => $moduleConfig['default_paper_size'],
-            'default_font'               => $moduleConfig['default_font'],
-            'dpi'                        => $moduleConfig['dpi'],
-            'font_height_ratio'          => $moduleConfig['font_height_ratio'],
-            'is_php_enabled'             => $moduleConfig['enable_php'],
-            'is_remote_enabled'          => $moduleConfig['enable_remote'],
-            'is_javascript_enabled'      => $moduleConfig['enable_javascript'],
-            'is_html5_parser_enabled'    => $moduleConfig['enable_html5parser'],
+            'temp_dir' => $moduleConfig['temporary_directory'],
+            'font_dir' => $moduleConfig['font_directory'],
+            'font_cache' => $moduleConfig['font_cache_directory'],
+            'chroot' => $moduleConfig['chroot'],
+            'log_output_file' => $moduleConfig['log_output_file'],
+            'default_media_type' => $moduleConfig['default_media_type'],
+            'default_paper_size' => $moduleConfig['default_paper_size'],
+            'default_font' => $moduleConfig['default_font'],
+            'dpi' => $moduleConfig['dpi'],
+            'font_height_ratio' => $moduleConfig['font_height_ratio'],
+            'is_php_enabled' => $moduleConfig['enable_php'],
+            'is_remote_enabled' => $moduleConfig['enable_remote'],
+            'is_javascript_enabled' => $moduleConfig['enable_javascript'],
+            'is_html5_parser_enabled' => $moduleConfig['enable_html5parser'],
             'is_font_subsetting_enabled' => $moduleConfig['enable_fontsubsetting'],
-            'debug_png'                  => $moduleConfig['debug_png'],
-            'debug_keep_temp'            => $moduleConfig['debug_keep_temp'],
-            'debug_css'                  => $moduleConfig['debug_css'],
-            'debug_layout'               => $moduleConfig['debug_layout'],
-            'debug_layout_lines'         => $moduleConfig['debug_layout_lines'],
-            'debug_layout_blocks'        => $moduleConfig['debug_layout_blocks'],
-            'debug_layout_inline'        => $moduleConfig['debug_layout_inline'],
-            'debug_layout_padding_box'   => $moduleConfig['debug_layout_padding_box'],
-            'pdf_backend'                => $moduleConfig['pdf_backend'],
-            'pdflib_license'             => $moduleConfig['pdflib_license']
+            'debug_png' => $moduleConfig['debug_png'],
+            'debug_keep_temp' => $moduleConfig['debug_keep_temp'],
+            'debug_css' => $moduleConfig['debug_css'],
+            'debug_layout' => $moduleConfig['debug_layout'],
+            'debug_layout_lines' => $moduleConfig['debug_layout_lines'],
+            'debug_layout_blocks' => $moduleConfig['debug_layout_blocks'],
+            'debug_layout_inline' => $moduleConfig['debug_layout_inline'],
+            'debug_layout_padding_box' => $moduleConfig['debug_layout_padding_box'],
+            'pdf_backend' => $moduleConfig['pdf_backend'],
+            'pdflib_license' => $moduleConfig['pdflib_license']
         ];
 
         return new Dompdf(new Options($options));

@@ -7,3 +7,6 @@ config/autoload/*.local.php
 
 # Build directories
 build/*
+
+# IDE directories
+.idea/*

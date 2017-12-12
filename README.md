@@ -33,7 +33,9 @@ PHP Composer, please visit the official [PHP Composer site](http://getcomposer.o
      'DOMPDFModule',
      ```
 #### Configuration options
-You can override options via the `dompdf_module` key in your local or global config files. See DOMPDFModule/config/module.config.php for config options.
+You can override options via the `dompdf_module_override` key in your local or global config files. See DOMPDFModule/config/module.config.php for config options.
+
+The configuration that can be overwritten can be found in the `config/module.config.php` file.
 
 ## Usage
 

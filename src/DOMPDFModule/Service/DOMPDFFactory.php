@@ -35,9 +35,12 @@ class DOMPDFFactory implements FactoryInterface
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         $moduleConfig = $serviceLocator->get('config')['dompdf_module'];
-        $customConfig = $serviceLocator->get('config')['dompdf_module_override'];
 
-        $moduleConfig = array_merge($moduleConfig, $customConfig);
+	    if (isset($serviceLocator->get('config')['dompdf_module_override']))
+	    {
+		    $customConfig = $serviceLocator->get('config')['dompdf_module_override'];
+		    $moduleConfig = array_merge($moduleConfig, $customConfig);
+	    }
 
         $options = [
             'temp_dir'                   => $moduleConfig['temporary_directory'],

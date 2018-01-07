@@ -13,23 +13,33 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * @author Raymond J. Kolbe <rkolbe@gmail.com>
+ * @author Márcio Dias <marciojr91@gmail.com>
  * @copyright Copyright (c) 2012 University of Maine, 2016 Raymond J. Kolbe
  * @license	http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-use DompdfModule\Framework\TestCase;
+namespace DompdfModule\Mvc\Service;
 
-ini_set('display_errors', 'On');
-error_reporting(E_ALL | E_STRICT);
+use Zend\ServiceManager\Factory\FactoryInterface;
+use Interop\Container\ContainerInterface;
+use DompdfModule\View\Renderer\PdfRenderer;
 
-if (is_readable(__DIR__ . '/TestConfiguration.php')) {
-    $configuration = include_once __DIR__ . '/TestConfiguration.php';
-} else {
-    $configuration = include_once __DIR__ . '/TestConfiguration.php.dist';
+class ViewPdfRendererFactory implements FactoryInterface
+{
+    /**
+     * Create and return the PDF view renderer.
+     *
+     * @SuppressWarnings("unused")
+     * @param ContainerInterface $container
+     * @param string $requestedName
+     * @param array|null $options
+     * @return PdfRenderer
+     */
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    {
+        return (new PdfRenderer())
+            ->setResolver($container->get('ViewResolver'))
+            ->setHtmlRenderer($container->get('ViewRenderer'))
+            ->setEngine($container->get('Dompdf'));
+    }
 }
-
-require_once __DIR__ . '/../vendor/autoload.php';
-
-$application = \Zend\Mvc\Application::init($configuration);
-$serviceManager = $application->getServiceManager();
-TestCase::setServiceManager($serviceManager);

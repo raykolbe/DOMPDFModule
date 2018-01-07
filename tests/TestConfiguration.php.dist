@@ -17,21 +17,20 @@
  * @license	http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-define('DOMPDF_DIR', __DIR__ . '/../vendor/dompdf/dompdf');
-
-return array(
-    'modules' => array(
-        'DOMPDFModule',
-    ),
-    'module_listener_options' => array(
+return [
+    'modules' => [
+        'DompdfModule',
+        'Zend\Router'
+    ],
+    'module_listener_options' => [
         'config_cache_enabled' => false,
         'cache_dir'            => 'data/cache',
-        'module_paths' => array(
+        'module_paths' => [
             './vendor',
             './module'
-        ),
-    ),
-    'service_manager' => array(
+        ],
+    ],
+    'service_manager' => [
         'use_defaults' => true,
-    ),
-);
+    ],
+];

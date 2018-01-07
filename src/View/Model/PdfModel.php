@@ -17,19 +17,40 @@
  * @license	http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-use DompdfModule\Framework\TestCase;
+namespace DompdfModule\View\Model;
 
-ini_set('display_errors', 'On');
-error_reporting(E_ALL | E_STRICT);
+use Zend\View\Model\ViewModel;
 
-if (is_readable(__DIR__ . '/TestConfiguration.php')) {
-    $configuration = include_once __DIR__ . '/TestConfiguration.php';
-} else {
-    $configuration = include_once __DIR__ . '/TestConfiguration.php.dist';
+class PdfModel extends ViewModel
+{
+    const DISPLAY_INLINE = 'inline';
+    const DISPLAY_ATTACHMENT = 'attachment';
+    const DEFAULT_FILE_NAME = 'untitled.pdf';
+
+    /**
+     * Renderer options
+     * @var array
+     */
+    protected $options = [
+        'paperSize' => '8x11',
+        'paperOrientation' => 'portrait',
+        'basePath' => '/',
+        'fileName' => self::DEFAULT_FILE_NAME,
+        'display' => self::DISPLAY_INLINE
+    ];
+
+    /**
+     * PDF probably won't need to be captured into a
+     * a parent container by default.
+     *
+     * @var string
+     */
+    protected $captureTo = null;
+
+    /**
+     * PDF is usually terminal
+     *
+     * @var bool
+     */
+    protected $terminate = true;
 }
-
-require_once __DIR__ . '/../vendor/autoload.php';
-
-$application = \Zend\Mvc\Application::init($configuration);
-$serviceManager = $application->getServiceManager();
-TestCase::setServiceManager($serviceManager);

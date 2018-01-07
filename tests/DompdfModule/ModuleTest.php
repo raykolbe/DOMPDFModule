@@ -17,19 +17,33 @@
  * @license	http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-use DompdfModule\Framework\TestCase;
+namespace DompdfModule;
 
-ini_set('display_errors', 'On');
-error_reporting(E_ALL | E_STRICT);
+use Zend\ModuleManager\Feature\ConfigProviderInterface;
 
-if (is_readable(__DIR__ . '/TestConfiguration.php')) {
-    $configuration = include_once __DIR__ . '/TestConfiguration.php';
-} else {
-    $configuration = include_once __DIR__ . '/TestConfiguration.php.dist';
+class ModuleTest extends \PHPUnit_Framework_TestCase
+{
+    /**
+     * @var Module
+     */
+    private $module;
+
+    public function testHasConfig()
+    {
+        $config = $this->module->getConfig();
+
+        $this->assertInstanceOf(ConfigProviderInterface::class, $this->module);
+        $this->assertArrayHasKey('dompdf_module', $config, 'dompdf_module');
+        $this->assertArrayHasKey('service_manager', $config, 'service_manager');
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function setUp()
+    {
+        parent::setUp();
+
+        $this->module = new Module();
+    }
 }
-
-require_once __DIR__ . '/../vendor/autoload.php';
-
-$application = \Zend\Mvc\Application::init($configuration);
-$serviceManager = $application->getServiceManager();
-TestCase::setServiceManager($serviceManager);

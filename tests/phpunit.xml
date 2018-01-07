@@ -4,7 +4,7 @@
         backupGlobals="false"
 >
     <testsuites>
-        <testsuite name="DOMPDFModule Test Suite">
+        <testsuite name="DompdfModule Test Suite">
             <directory>./</directory>
         </testsuite>
     </testsuites>

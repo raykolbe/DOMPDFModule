@@ -1,39 +1,23 @@
-DOMPDFModule
+DompdfModule
 ============
 
 [![Build Status](https://secure.travis-ci.org/raykolbe/DOMPDFModule.png?branch=master)](http://travis-ci.org/raykolbe/DOMPDFModule) [![Code Climate](https://codeclimate.com/github/raykolbe/DOMPDFModule/badges/gpa.svg)](https://codeclimate.com/github/raykolbe/DOMPDFModule) [![Test Coverage](https://codeclimate.com/github/raykolbe/DOMPDFModule/badges/coverage.svg)](https://codeclimate.com/github/raykolbe/DOMPDFModule/coverage) [![Total Downloads](https://poser.pugx.org/dino/dompdf-module/downloads)](https://packagist.org/packages/dino/dompdf-module) [![License](https://poser.pugx.org/dino/dompdf-module/license)](https://packagist.org/packages/dino/dompdf-module)
 
-The DOMPDF module integrates the DOMPDF library with Zend Framework 2 with minimal effort on the consumer's end.
+DompdfModule integrates the [Dompdf](https://github.com/dompdf/dompdf) library with Zend Framework.
 
 ## Requirements
-  - [Zend Framework 2](http://www.github.com/zendframework/zf2)
+  - PHP 5.6+
+  - [Zend Framework](https://github.com/zendframework/zendframework)
 
 ## Installation
-Installation of DOMPDFModule uses PHP Composer. For more information about
-PHP Composer, please visit the official [PHP Composer site](http://getcomposer.org/).
+It is recommended that you use [Composer](http://getcomposer.org/) to install this package.
 
-#### Installation steps
+```
+composer require dino/dompdf-module
+```
 
-  1. `cd my/project/directory`
-  2. create a `composer.json` file with following contents:
-
-     ```json
-     {
-         "require": {
-             "dino/dompdf-module": "dev-master"
-         }
-     }
-     ```
-  3. install PHP Composer via `curl -s http://getcomposer.org/installer | php` (on windows, download
-     http://getcomposer.org/installer and execute it with PHP)
-  4. run `php composer.phar install`
-  5. open `my/project/directory/config/application.config.php` and add the following key to your `modules`: 
-
-     ```php
-     'DOMPDFModule',
-     ```
 #### Configuration options
-You can override options via the `dompdf_module` key in your local or global config files. See DOMPDFModule/config/module.config.php for config options.
+You can override options via the `dompdf_module` key in your local or global config files. See DompdfModule/config/module.config.php for config options.
 
 ## Usage
 
@@ -43,24 +27,22 @@ You can override options via the `dompdf_module` key in your local or global con
 namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
-use DOMPDFModule\View\Model\PdfModel;
+use DompdfModule\View\Model\PdfModel;
 
 class ReportController extends AbstractActionController
 {
     public function monthlyReportPdfAction()
     {
-        $pdf = new PdfModel();
-        $pdf->setOption('fileName', 'monthly-report');            // "pdf" extension is automatically appended
-        $pdf->setOption('display', PdfModel::DISPLAY_ATTACHMENT); // Triggers browser to prompt "save as" dialog
-        $pdf->setOption('paperSize', 'a4');                       // Defaults to "8x11"
-        $pdf->setOption('paperOrientation', 'landscape');         // Defaults to "portrait"
-        
-        // To set view variables
-        $pdf->setVariables(array(
-          'message' => 'Hello'
-        ));
-        
-        return $pdf;
+        return (new PdfModel())
+        	->setOptions([
+	        	'fileName'         => 'monthly-report',
+	        	'display'          => PdfModel::DISPLAY_ATTACHMENT,
+	        	'paperSize'        => 'a4',
+	        	'paperOrientation' => 'landscape'
+	        ])
+	        ->setVariables([
+	        	'message' => 'Hello'
+	        ]);
     }
 }
 ```
@@ -92,6 +74,3 @@ By default, builds executed using Docker are done so using the [latest stable ve
 docker build --build-arg PHP_VERSION=5.6 --tag dino/dompdf-module-php56 .
 docker run -v composer-cache:/var/lib/composer -v ${PWD}:/opt/app dino/dompdf-module-php56
 ```
-
-## To-do
-  - Add command line support.

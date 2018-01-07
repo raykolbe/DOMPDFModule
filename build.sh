@@ -75,7 +75,6 @@ composer --prefer-dist install
 php -l ${PROJECT_ROOT}/src
 php -l ${PROJECT_ROOT}/config
 php -l ${PROJECT_ROOT}/tests
-php -l ${PROJECT_ROOT}/Module.php
 
 # ------------------------------------------------------------------
 # Test

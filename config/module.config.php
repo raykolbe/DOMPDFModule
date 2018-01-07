@@ -279,7 +279,7 @@ return [
         'factories' => [
             'Dompdf'          => Service\DompdfFactory::class,
             'ViewPdfRenderer' => Mvc\Service\ViewPdfRendererFactory::class,
-            'ViewPdfStrategy' => Mvc\Service\ViewPdfRendererFactory::class
+            'ViewPdfStrategy' => Mvc\Service\ViewPdfStrategyFactory::class
         ]
     ]
 ];

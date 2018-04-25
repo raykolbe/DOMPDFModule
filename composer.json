@@ -2,7 +2,7 @@
     "name": "dino/dompdf-module",
     "type": "library",
     "description": "A Zend Framework 2 module for incorporating Dompdf support.",
-    "keywords": ["pdf","dompdf", "zf2"],
+    "keywords": ["pdf","dompdf", "zf3"],
     "homepage": "http://raymondkolbe.com",
     "license": "MIT",
     "authors": [
